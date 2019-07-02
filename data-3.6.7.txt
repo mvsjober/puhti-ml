@@ -1,0 +1,9 @@
+numpy>=1.16
+scikit-learn
+pandas
+matplotlib
+seaborn
+graphviz
+jupyterlab
+virtualenv
+Pillow
