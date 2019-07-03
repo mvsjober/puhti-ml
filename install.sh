@@ -14,7 +14,7 @@ if [ -z "$REQFN" ]; then
 fi
 
 PKG=${REQFN/.txt/}
-FROZEN="frozen_${REQFN}"
+FROZEN="${REQFN}.frozen"
 
 PREFIX="$TARGET/$PKG"
 if [ -d "$PREFIX" ]; then
