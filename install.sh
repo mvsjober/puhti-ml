@@ -8,8 +8,8 @@ TARGET=${WRKDIR}/appl/opt
 REQFN=$1
 if [ -z "$REQFN" ]; then
     echo "Usage: $0 REQFN"
-    echo "Example: $0 pkg-1.2.3.txt"
-    echo "where pkg-1.2.3.txt is the requirements.txt file for installing package pkg-1.2.3"
+    echo "Example: $0 pkg/1.2.3.txt"
+    echo "where pkg/1.2.3.txt is the requirements.txt file for installing package pkg/1.2.3"
     exit 1
 fi
 
