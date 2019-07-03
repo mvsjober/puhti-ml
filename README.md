@@ -19,6 +19,28 @@ Next, install what you need in the right order (first python-data, etc).  The co
 Now you should be able to take the modules into use, e.g.:
 
     module load tensorflow/1.13.1
+    
+## Current modules
+
+### python-data
+
+Includes common machine learning and data analytics packages for Python such as [SciPy](https://www.scipy.org/), [NumPy](http://www.numpy.org/), [pandas](https://pandas.pydata.org/) and [scikit-learn](https://scikit-learn.org/stable/). Base module for the other modules.
+
+Version numbering is `x.y.z-n`, where `x.y.z` is the Python version included, and `n` starts from 1.
+
+### pytorch and pytorch-hvd
+
+[PyTorch](https://pytorch.org/) and related packages.  The separated module `pytorch-hvd` is the same but includes [horovod](https://github.com/horovod/horovod) support and OpenMPI.
+
+Version numbering is based on the PyTorch version.
+
+
+### tensorflow and tensorflow-hvd
+
+[Tensorflow](https://www.tensorflow.org/) and related packages.  The separated module `tensorflow-hvd` is the same but includes [horovod](https://github.com/horovod/horovod) support and OpenMPI.
+
+Version numbering is based on the Tensorflow version.
+
 
 ## Notes
 
