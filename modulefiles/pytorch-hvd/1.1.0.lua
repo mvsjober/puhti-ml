@@ -28,5 +28,5 @@ if (mode() == "load") then
 end
 
 load("pytorch/1.1.0")
-prepend_path('PYTHONPATH', '/wrk/kuu-ukko/appl/opt/pytorch-hvd/1.1.0/lib/python3.6/site-packages')
-prepend_path('PATH', '/wrk/kuu-ukko/appl/opt/pytorch-hvd/1.1.0/bin')
+prepend_path('PYTHONPATH', '/wrk/mvsjober/appl/opt/pytorch-hvd/1.1.0/lib/python3.6/site-packages')
+prepend_path('PATH', '/wrk/mvsjober/appl/opt/pytorch-hvd/1.1.0/bin')

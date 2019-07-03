@@ -29,5 +29,5 @@ if (mode() == "load") then
 end
 
 load("tensorflow/1.13.1")
-prepend_path('PYTHONPATH', '/wrk/kuu-ukko/appl/opt/tensorflow-hvd/1.13.1/lib/python3.6/site-packages')
-prepend_path('PATH', '/wrk/kuu-ukko/appl/opt/tensorflow-hvd/1.13.1/bin')
+prepend_path('PYTHONPATH', '/wrk/mvsjober/appl/opt/tensorflow-hvd/1.13.1/lib/python3.6/site-packages')
+prepend_path('PATH', '/wrk/mvsjober/appl/opt/tensorflow-hvd/1.13.1/bin')
