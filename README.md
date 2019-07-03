@@ -14,15 +14,13 @@ module load python-data/3.6.7-1   # just to get the right Python interpreter
 
 Set `TARGET` directory to where you want the Python files installed in `install.sh`, the default is `${WRKDIR}/appl/opt`.
 
-Next, install what you need in the right order (first python-data, etc.).  The command will show what it will do, you need to confirm with pressing Return, or Ctrl-C to abort.
+The modules need to be installed in the right order, as some modules depend on others being present first.  To install everything in the right order, just run:
 
 ```sh
-./install.sh python-data/3.6.7-1.txt
-./install.sh pytorch/1.1.0.txt
-./install.sh tensorflow/1.13.1.txt
+install-all.sh
 ```
 
-You can also just run the `install-all.sh` script, which should have them all in the right order.
+For each module the command will show what it will do, you need to confirm with pressing Return, or Ctrl-C to abort.  You can also install individual modules directly like: `./install.sh tensorflow/1.13.1.txt`.
 
 Now you should be able to take the modules into use, e.g.:
 
@@ -35,6 +33,12 @@ There are also some tests that you can run with:
 
 ```sh
 ./tests.sh
+```
+
+or as you probably need a GPU with CUDA for some the tests:
+
+```sh
+srun --partition=gputest  --time=15 --gres=gpu:k80:1 --mem=8G ./tests.sh
 ```
 
 
@@ -69,7 +73,7 @@ At the end of the installation the script produces a frozen snapshot of exactly 
 Also remember to:
 
 - add your module to the `install-all.sh` script
-- add tests as `tests/foo.py` where `foo` is your package name
+- add tests as `tests/foo.py` where `foo` is your package name, and also make sure that `tests.sh` are running them
 
 ### Text files
 
