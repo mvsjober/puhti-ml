@@ -30,7 +30,6 @@ set -o xtrace
 
 mkdir -p $PREFIX
 
-#  --ignore-installed
-$PIP install --no-warn-script-location --prefix $PREFIX -r $REQFN
+PYTHONUSERBASE=$PREFIX $PIP install --no-warn-script-location --user -r $REQFN
 PYTHONPATH=${PREFIX}/lib64/python3.6/site-packages:${PREFIX}/lib/python3.6/site-packages \
           $PIP freeze -r $REQFN > $FROZEN
