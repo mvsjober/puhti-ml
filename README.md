@@ -5,7 +5,7 @@ Scripts to install Python packages for CSC's Puhti environment using [pip](https
 ## Usage
 
 ```sh
-git clone https://github.com/mvsjober/puhti-ml.git
+git clone https://github.com/CSCfi/puhti-ml.git
 
 module purge
 module use puhti-ml/modulefiles
