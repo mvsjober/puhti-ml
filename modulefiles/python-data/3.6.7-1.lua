@@ -58,9 +58,9 @@ if (mode() == "load") then
 end
 
 load("python/serial-3.6.7")
-prepend_path('PYTHONPATH', '/wrk/kuu-ukko/appl/opt/python-data-3.6.7/lib/python3.6/site-packages')
+prepend_path('PYTHONPATH', '/wrk/kuu-ukko/appl/opt/python-data/3.6.7-1/lib/python3.6/site-packages')
 prepend_path('PYTHONPATH', '/appl/vis/opencv/3.4.6-GPU-py36/lib/python3.6/site-packages/cv2/python-3.6')
-prepend_path('PATH', '/wrk/kuu-ukko/appl/opt/python-data-3.6.7/bin')
+prepend_path('PATH', '/wrk/kuu-ukko/appl/opt/python-data/3.6.7-1/bin')
 prepend_path("LD_LIBRARY_PATH","/appl/vis/opencv/3.4.6-GPU-py36/lib64")
 prepend_path("LD_LIBRARY_PATH","/appl/vis/ffmpeg/2.3.3/lib")
 prepend_path("PKG_CONFIG_PATH","/appl/vis/opencv/3.4.6-GPU-py36/lib64/pkgconfig")
