@@ -1,6 +1,6 @@
 # Installation files for Puhti ML environment
 
-Scripts to install Python packages for CSC's Puhti environment using [pip](https://pip.pypa.io/en/stable/), and related module configuration files.
+Scripts to install Python packages for CSC's Puhti machine learning environment using [pip](https://pip.pypa.io/en/stable/), and related module configuration files.
 
 ## Usage
 
