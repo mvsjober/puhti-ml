@@ -16,3 +16,6 @@ Next, install what you need in the right order (first python-data, etc).  The co
     ./install.sh pytorch/1.1.0.txt
     ./install.sh tensorflow/1.13.1.txt
 
+Now you should be able to take the modules into use, e.g.:
+
+    module load tensorflow/1.13.1
