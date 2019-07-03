@@ -57,9 +57,9 @@ if (mode() == "load") then
 
 end
 
-load("python-env/3.6.7-data")
+load("python-data/3.6.7-1")
 load("cuda/10.0")
 load("cudnn/7.4.1-cuda10")
 load("nccl/2.4.2-cuda10")
-prepend_path('PYTHONPATH', '/wrk/mvsjober/appl/opt/pytorch-1.1.0/lib/python3.6/site-packages')
-prepend_path('PATH', '/wrk/mvsjober/appl/opt/pytorch-1.1.0/bin')
+prepend_path('PYTHONPATH', '/wrk/kuu-ukko/appl/opt/pytorch-1.1.0/lib/python3.6/site-packages')
+prepend_path('PATH', '/wrk/kuu-ukko/appl/opt/pytorch-1.1.0/bin')
