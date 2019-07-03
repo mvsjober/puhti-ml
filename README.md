@@ -22,12 +22,21 @@ Next, install what you need in the right order (first python-data, etc.).  The c
 ./install.sh tensorflow/1.13.1.txt
 ```
 
+You can also just run the `install-all.sh` script, which should have them all in the right order.
+
 Now you should be able to take the modules into use, e.g.:
 
 ```sh
 module use puhti-ml/modulefiles
 module load tensorflow/1.13.1
 ```
+
+There are also some tests that you can run with:
+
+```sh
+./tests.sh
+```
+
 
 ## Current modules
 
@@ -56,6 +65,11 @@ Version numbering is based on the Tensorflow version.
 For each new module a Python requirements file needs to be added as `foo/1.2.3.txt`, where `foo` is the name of the software package and `1.2.3` the version number.  Also a Lua-based module file is needed named as `modulefiles/foo/1.2.3.lua`.  See the existing files for examples.
 
 At the end of the installation the script produces a frozen snapshot of exactly what packages were installed as `foo/1.2.3.txt.frozen` in case there is a need to replicate the exact environment later.
+
+Also remember to:
+
+- add your module to the `install-all.sh` script
+- add tests as `tests/foo.py` where `foo` is your package name
 
 ### Text files
 
