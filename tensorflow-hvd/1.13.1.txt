@@ -1,1 +1,1 @@
-/appl/opt/horovod/0.15.2/horovod-0.15.2-cp36-cp36m-linux_x86_64.whl
+/appl/opt/horovod/0.16.1-git/horovod-0.16.1-cp36-cp36m-linux_x86_64.whl

@@ -1,6 +1,7 @@
 -- Name of the application
-local Name = "tensorflow/1.13.1 environment"
+local Name = "tensorflow-hvd/1.13.1 environment"
 
+needs_compiler = "gcc/6.2.0"
 needs_mpi = "openmpi/3.1.0"
 
 help(
@@ -14,6 +15,18 @@ Note that this module depends on MPI version %s.
 if (mode() == "load") then
 
   LmodMessage("Loading application " .. Name .. " with needed modules")
+
+  if (not isloaded(needs_compiler)) then
+    -- Determine the loaded compiler
+    compiler_name = os.getenv("TACC_FAMILY_COMPILER") or ""
+    if (compiler_name ~= "") then
+      LmodMessage("  Switching compiler " .. compiler_name .. " to " ..
+        needs_compiler)
+      unload(compiler_name)
+    end
+  end
+
+  always_load(needs_compiler)
 
   if (not isloaded(needs_mpi)) then
     mpi_name = os.getenv("TACC_FAMILY_MPI") or ""
