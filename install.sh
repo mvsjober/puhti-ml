@@ -30,6 +30,12 @@ set -o xtrace
 
 mkdir -p $PREFIX
 
-PYTHONUSERBASE=$PREFIX $PIP install --no-warn-script-location --user -r $REQFN
+# PKG_SH="${PKG}.sh"
+# if [ -f $PKG_SH ]; then
+#     set -a
+#     source $PKG_SH
+# fi
+
+PYTHONUSERBASE=$PREFIX $PIP install --no-warn-script-location --no-cache-dir --user -r $REQFN
 PYTHONPATH=${PREFIX}/lib64/python3.6/site-packages:${PREFIX}/lib/python3.6/site-packages \
           $PIP freeze -r $REQFN > $FROZEN
