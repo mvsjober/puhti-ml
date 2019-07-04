@@ -6,6 +6,10 @@ PACKAGES="python-data/3.6.7-1
           tensorflow/1.13.1
           tensorflow-hvd/1.13.1"
 
+module purge
+module use modulefiles
+module load python-data/3.6.7-1
+
 for PKG in $PACKAGES
 do
     ./install.sh ${PKG}.txt
