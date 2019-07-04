@@ -32,14 +32,10 @@ module load tensorflow/1.13.1
 There are also some tests that you can run with:
 
 ```sh
-./tests.sh
+./run-tests-gpu.sh
 ```
 
-or as you probably need a GPU with CUDA for some the tests:
-
-```sh
-srun --partition=gputest  --time=15 --gres=gpu:k80:1 --mem=8G ./tests.sh
-```
+(Note: this will run using slurm on the `gputest` partition).
 
 
 ## Current modules
@@ -73,7 +69,7 @@ At the end of the installation the script produces a frozen snapshot of exactly 
 Also remember to:
 
 - add your module to the `install-all.sh` script
-- add tests as `tests/foo.py` where `foo` is your package name, and also make sure that `tests.sh` are running them
+- add tests as `tests/foo.py` where `foo` is your package name (change any "-" in the name to "_", just to keep Python happy)
 
 ### Text files
 
