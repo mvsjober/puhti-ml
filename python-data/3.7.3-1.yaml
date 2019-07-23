@@ -1,0 +1,25 @@
+name: python-data-3.7.3-1
+dependencies:
+  - scikit-learn
+  - jupyterlab
+  - pandas
+  - tqdm
+  - seaborn
+  - requests
+  - pillow
+  - h5py
+  - graphviz
+  - matplotlib
+  - nltk
+  - sqlite
+  - spyder
+  - pytest
+  - cython
+  - gensim
+  - xlwt
+  - openpyxl
+  - pydot
+  - dask
+  - pyyaml
+  - py-xgboost
+  - pytables
