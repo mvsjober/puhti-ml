@@ -1,8 +1,8 @@
 #!/bin/bash
 
-module use modulefiles
+# module use modulefiles
 
-PACKAGES=$(find -name '*.txt' | cut -d / -f 2 | sort -u)
+PACKAGES=$(find modulefiles -name *.lua | cut -d / -f 2 | sort -u)
 REPORT=""
 
 for PKG in $PACKAGES
@@ -10,12 +10,11 @@ do
     SCRIPT="tests/${PKG/-/_}.py"
     if [ -f $SCRIPT ]; then
         echo "=== Running tests for ${PKG} ==="
-        echo
         module purge
         module load $PKG
-
-        echo
-        if PYTHONWARNINGS="d,i::ImportWarning,i::DeprecationWarning,i::ResourceWarning" python3 -m unittest -f -v $SCRIPT; then
+        module list
+        
+        if PYTHONWARNINGS="d,i::ImportWarning,i::DeprecationWarning,i::ResourceWarning" python3 -m unittest -v $SCRIPT; then
             STATUS="SUCCESS"
         else
             STATUS="FAILURE"
