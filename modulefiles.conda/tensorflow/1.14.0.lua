@@ -1,7 +1,7 @@
 local condaEnv = 'tensorflow-1.14.0'
 
 help([[
-         Tensorflow deep learning library for Python.
+         Tensorflow deep learning library for Python
 ]])
 
 local condaRoot = '/appl/soft/ai/miniconda3'
