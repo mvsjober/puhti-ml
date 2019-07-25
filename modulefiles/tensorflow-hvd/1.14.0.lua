@@ -1,8 +1,11 @@
-local condaEnv = 'python-data-3.7.3-1'
+local condaEnv = 'tensorflow-hvd-1.14.0'
 
 help([[
-         Collection of popular data analytics and machine learning packages for Python
+         Tensorflow deep learning library for Python with Horovod support.
 ]])
+
+depends_on("gcc/8.3.0")
+depends_on("hpcx-mpi/2.4.0")
 
 local condaRoot = '/appl/soft/ai/miniconda3'
 local envRoot = pathJoin(condaRoot, 'envs', condaEnv)
