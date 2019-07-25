@@ -12,11 +12,16 @@ For installation purposes, however you need to first activate the miniconda envi
   
     eval "$(/appl/soft/ai/miniconda3/bin/conda shell.bash hook)"
 
+Also before installing anything:
+
+    newgrp p_installation_ai
+    umask 0002
+
 ## Useful commands
 
 List current environments:
 
-conda info --envs
+    conda info --envs
 
 Remove environment if you mess something up:
 
@@ -93,8 +98,6 @@ Use the paths printed by spack in the commands below, for example:
 
 PyTorch with [horovod](https://github.com/horovod/horovod) support.  **Still missing...**
 
-
-Scripts to install Python packages for CSC's Puhti machine learning environment using [pip](https://pip.pypa.io/en/stable/), and related module configuration files.
 
 ## Module files
 
