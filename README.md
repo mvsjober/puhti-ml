@@ -8,14 +8,14 @@ In general we have one conda environment per Lmod module.  Conda enviroments are
 
 Conda environments cannot have "/" in their name so conda environment `pytorch-1.1.0` corresponds to the Lmod module `pytorch/1.1.0`.
 
-For installation purposes, however you need to first activate the miniconda environment:
-  
-    eval "$(/appl/soft/ai/miniconda3/bin/conda shell.bash hook)"
-
-Also before installing anything:
+First:
 
     newgrp p_installation_ai
     umask 0002
+
+Activate the miniconda environment:
+
+    eval "$(/appl/soft/ai/miniconda3/bin/conda shell.bash hook)"
 
 ## Useful commands
 
@@ -68,7 +68,7 @@ Created as:
 
 ### tensorflow-hvd
 
-Tensorflow with [horovod](https://github.com/horovod/horovod) support.  **MPI is not working yet on Puhti...**
+Tensorflow with [horovod](https://github.com/horovod/horovod) support.
 
 First install NCCL under `/appl/soft/ai/nccl`.
 
@@ -90,12 +90,31 @@ Install horovod with `pip`:
 
 If you need to redo it, just uninstall first: `pip uninstall horovod`.
 
-**NOTE:** Horovod current works on a single node, but not across nodes.  Open MPI failes to connect to peer MPI processes over TCP.
+In the slurm script on puhti you should no longer use `mpirun` but just `srun` directly, for example:
+
+    export NCCL_DEBUG=INFO  # prints some useful NCCL debug info
+    srun -n 2 python3 my_horovod_script.py
 
 
 ### pytorch-hvd
 
-PyTorch with [horovod](https://github.com/horovod/horovod) support.  **Still missing...**
+PyTorch with [horovod](https://github.com/horovod/horovod) support.
+
+    conda create --name pytorch-hvd-1.1.0 --clone pytorch-1.1.0
+
+    conda activate pytorch-hvd-1.1.0
+    conda install gcc_linux-64 gxx_linux-64
+
+Activate MPI:
+
+    ml gcc/8.3.0
+    ml hpcx-mpi/2.4.0
+
+Install horovod with `pip`:
+
+    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.7-1+cuda10.1_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
+
+If you need to redo it, just uninstall first: `pip uninstall horovod`.  See also slurm script example above in the `tensorflow-hvd` section.
 
 
 ## Module files
@@ -117,9 +136,8 @@ Note: this will run using slurm on the `gpu` partition.  Also for now the comput
 
 ## TODO
 
-- Get MPI working with Horovod!
-
-- Install pytorch-hvd when we have figured that out
-
 - Test what happens if user tries to use conda to create own environments
 
+- Test and benchmark things...
+
+- Document things to docs.csc.fi
