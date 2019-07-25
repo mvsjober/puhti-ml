@@ -70,7 +70,7 @@ Created as:
 
 Tensorflow with [horovod](https://github.com/horovod/horovod) support.  **MPI is not working yet on Puhti...**
 
-First NCCL was installed, see `/appl/soft/ai/nccl/install.txt`.
+First install NCCL under `/appl/soft/ai/nccl`.
 
 Created environment:
 
@@ -79,17 +79,16 @@ Created environment:
     conda activate tensorflow-hvd-1.14.0
     conda install gcc_linux-64 gxx_linux-64
     
-Find a good MPI from spack:
+Activate MPI:
 
-    source /appl/opt/utils/spack-settings.sh
-    spack find -p mpi
-    
-Use the paths printed by spack in the commands below, for example:
+    ml gcc/8.3.0
+    ml hpcx-mpi/2.4.0
 
-    export PATH=/appl/spack/install-tree/gcc-8.3.0/hpcx-mpi-2.4.0-7gyvq3/bin:$PATH
-    # not sure if LD_LIBRARY_PATH was also needed ...
-    # export LD_LIBRARY_PATH=/appl/spack/install-tree/gcc-8.3.0/hpcx-mpi-2.4.0-7gyvq3/lib/
-    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl-2019-07-24-gcc8.3.0/build HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
+Install horovod with `pip`:
+
+    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.7-1+cuda10.1_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
+
+If you need to redo it, just uninstall first: `pip uninstall horovod`.
 
 **NOTE:** Horovod current works on a single node, but not across nodes.  Open MPI failes to connect to peer MPI processes over TCP.
 
