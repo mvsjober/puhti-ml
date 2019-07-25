@@ -110,7 +110,7 @@ There are also some tests that you can run with:
 
     ./run-tests-gpu.sh
 
-(Note: this will run using slurm on the `gputest` partition).
+Note: this will run using slurm on the `gpu` partition.  Also for now the compute nodes don't have Internet access so you need to first run it on the login node to download all the models and data (`./run-tests.sh`).
 
 
 ## TODO

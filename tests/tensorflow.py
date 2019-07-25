@@ -11,7 +11,7 @@ class TestTensorflow(unittest.TestCase):
 
     def test_versions(self):
         import tensorflow as tf
-        self.assertEqual(LV(tf.__version__), LV("1.13.1"))
+        self.assertEqual(LV(tf.__version__), LV("1.14.0"))
 
         import keras
         self.assertGreaterEqual(LV(keras.__version__), LV("2.0"))

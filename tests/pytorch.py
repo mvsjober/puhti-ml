@@ -14,9 +14,6 @@ class TestPytorch(unittest.TestCase):
         import torchvision
         self.assertEqual(LV(torchvision.__version__), LV("0.2.2"))
 
-        import torchtext
-        self.assertGreaterEqual(LV(torchtext.__version__), LV("0.3.1"))
-
     def test_cuda(self):
         import torch
         self.assertTrue(torch.cuda.is_available())
