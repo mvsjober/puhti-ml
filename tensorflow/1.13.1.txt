@@ -1,2 +1,0 @@
-/appl/opt/tensorflow/1.13.1/tensorflow-1.13.1-cp36-cp36m-linux_x86_64.whl
-Keras==2.2.4
