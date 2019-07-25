@@ -98,15 +98,26 @@ Scripts to install Python packages for CSC's Puhti machine learning environment 
 
 ## Module files
 
-The module files are for the [Lmod module system](https://lmod.readthedocs.io/en/latest/index.html), and the [format is documented](https://lmod.readthedocs.io/en/latest/015_writing_modules.html) on the Lmod web site.  Just a few notes:
+The module files are for the [Lmod module system](https://lmod.readthedocs.io/en/latest/index.html), and the [format is documented](https://lmod.readthedocs.io/en/latest/015_writing_modules.html) on the Lmod web site.
 
+Currently we simply set the PATH and PYTHONPATH enviroment variables to point to that conda environment.
+
+Should be copied to `/appl/modulefiles/`, e.g., `/appl/modulefiles/tensorflow/1.14.0.lua`, should be writable by group `p_installation`.
 
 ## Testing
 
 There are also some tests that you can run with:
 
-```sh
-./run-tests-gpu.sh
-```
+    ./run-tests-gpu.sh
 
 (Note: this will run using slurm on the `gputest` partition).
+
+
+## TODO
+
+- Get MPI working with Horovod!
+
+- Install pytorch-hvd when we have figured that out
+
+- Test what happens if user tries to use conda to create own environments
+
