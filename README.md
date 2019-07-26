@@ -59,12 +59,23 @@ Includes [Tensorflow](https://www.tensorflow.org/) and related packages.
 
 Version numbering is based on the Tensorflow version.
 
+#### 1.14.0
+
 Created as:
 
     conda create --name tensorflow-1.14.0 --clone python-data-3.7.3-1
     
     conda activate tensorflow-1.14.0
     conda install tensorflow-gpu==1.14.0 keras
+    
+#### 1.13.1
+
+Created as:
+
+    conda create --name tensorflow-1.13.1 --clone python-data-3.7.3-1
+    
+    conda activate tensorflow-1.13.1
+    conda install tensorflow-gpu==1.13.1 keras
 
 ### tensorflow-hvd
 
