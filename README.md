@@ -108,11 +108,12 @@ PyTorch with [horovod](https://github.com/horovod/horovod) support.
 Activate MPI:
 
     ml gcc/8.3.0
-    ml hpcx-mpi/2.4.0
+    ml hpcx-mpi/2.4.0  # or mpich/3.3.1
 
 Install horovod with `pip`:
 
-    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.7-1+cuda10.1_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
+    CUDA_HOME=/usr/local/cuda-10.0/targets/x86_64-linux HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.7-1+cuda10.0_x86_64 \ 
+    HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
 
 If you need to redo it, just uninstall first: `pip uninstall horovod`.  See also slurm script example above in the `tensorflow-hvd` section.
 
