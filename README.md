@@ -23,6 +23,10 @@ List current environments:
 
     conda info --envs
 
+List contents of the current environment:
+
+    conda list
+
 Remove environment if you mess something up:
 
     conda env remove --name foo-1.2.3
@@ -77,7 +81,7 @@ Created as:
     conda activate tensorflow-1.13.1
     conda install tensorflow-gpu==1.13.1 keras
 
-### tensorflow-hvd
+#### 1.13.1-hvd
 
 Tensorflow with [horovod](https://github.com/horovod/horovod) support.
 
@@ -85,9 +89,9 @@ First install NCCL under `/appl/soft/ai/nccl`.
 
 Created environment:
 
-    conda create --name tensorflow-hvd-1.14.0 --clone tensorflow-1.14.0
+    conda create --name tensorflow-hvd-1.13.1 --clone tensorflow-1.13.1
 
-    conda activate tensorflow-hvd-1.14.0
+    conda activate tensorflow-hvd-1.13.1
     conda install gcc_linux-64 gxx_linux-64
     
 Activate MPI:
@@ -97,17 +101,19 @@ Activate MPI:
 
 Install horovod with `pip`:
 
-    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.7-1+cuda10.1_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
+    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.7-1+cuda10.0_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
 
 If you need to redo it, just uninstall first: `pip uninstall horovod`.
 
 In the slurm script on puhti you should no longer use `mpirun` but just `srun` directly, for example:
 
     export NCCL_DEBUG=INFO  # prints some useful NCCL debug info
-    srun -n 2 python3 my_horovod_script.py
+    srun python3 my_horovod_script.py
 
 
 ### pytorch-hvd
+
+*This section is work-in-progress*
 
 PyTorch with [horovod](https://github.com/horovod/horovod) support.
 
