@@ -56,6 +56,15 @@ Created as:
     conda activate pytorch-1.1.0
     conda install pytorch==1.1.0 torchvision==0.2.2 cudatoolkit -c pytorch
     conda install tensorboardx -c conda-forge
+    
+#### apex
+
+    module load pytorch/1.1.0 gcc/7.4.0
+    export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.0.130-ayjzbn
+    git clone https://github.com/NVIDIA/apex
+    cd apex
+    rm -rf .git
+    pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 
 ### tensorflow
 
