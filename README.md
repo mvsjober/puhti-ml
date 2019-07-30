@@ -119,6 +119,20 @@ In the slurm script on puhti you should no longer use `mpirun` but just `srun` d
     export NCCL_DEBUG=INFO  # prints some useful NCCL debug info
     srun python3 my_horovod_script.py
 
+### mxnet
+
+Includes [MXNet](https://mxnet.apache.org/) and related packages.
+
+Version numbering is based on the MXNet version.
+
+Created as:
+
+    conda create --name mxnet-1.5.0 --clone python-data-3.7.3-1
+
+    conda activate mxnet-1.5.0
+    conda install cudatoolkit cudnn mkl-dnn
+    pip install mxnet-cu101mkl
+    conda install tensorboardx -c conda-forge
 
 ### pytorch-hvd
 
