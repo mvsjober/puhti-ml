@@ -51,6 +51,9 @@ Version numbering is based on the PyTorch version.
 
 Created as:
 
+    # not sure if needed, but seems to increase changes the clone is actually hardlinking ...
+    conda activate python-data-3.7.3-1
+
     conda create --name pytorch-1.1.0 --clone python-data-3.7.3-1
 
     conda activate pytorch-1.1.0
