@@ -62,6 +62,7 @@ Created as:
     conda install pytorch==1.2.0 cudatoolkit -c pytorch
     conda install torchvision torchtext torchaudio -c pytorch
     conda install librosa -c conda-forge
+    conda install tensorboardx -c conda-forge
     
 Apex installed same as below.
 
