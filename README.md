@@ -49,10 +49,25 @@ Includes [PyTorch](https://pytorch.org/) and related packages.
 
 Version numbering is based on the PyTorch version.
 
+#### 1.2.0
+
 Created as:
 
     # not sure if needed, but seems to increase changes the clone is actually hardlinking ...
     conda activate python-data-3.7.3-1
+
+    conda create --name pytorch-1.2.0 --clone python-data-3.7.3-1
+
+    conda activate pytorch-1.2.0
+    conda install pytorch==1.2.0 cudatoolkit -c pytorch
+    conda install torchvision torchtext torchaudio -c pytorch
+    conda install librosa -c conda-forge
+    
+Apex installed same as below.
+
+#### 1.1.0
+
+Created as:
 
     conda create --name pytorch-1.1.0 --clone python-data-3.7.3-1
 
@@ -60,7 +75,7 @@ Created as:
     conda install pytorch==1.1.0 torchvision==0.2.2 cudatoolkit -c pytorch
     conda install tensorboardx -c conda-forge
     
-#### apex
+##### apex
 
     module load pytorch/1.1.0 gcc/7.4.0
     export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.0.130-ayjzbn
