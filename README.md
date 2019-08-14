@@ -75,6 +75,7 @@ Created as:
     conda activate pytorch-1.1.0
     conda install pytorch==1.1.0 torchvision==0.2.2 cudatoolkit -c pytorch
     conda install tensorboardx -c conda-forge
+    conda install librosa -c conda-forge
     
 ##### apex
 
