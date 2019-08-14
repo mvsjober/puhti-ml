@@ -49,6 +49,13 @@ Includes [PyTorch](https://pytorch.org/) and related packages.
 
 Version numbering is based on the PyTorch version.
 
+At the end of each pytorch install I have also pinned the pytorch version by adding a file `/appl/soft/ai/miniconda3/envs/pytorch-X.Y.Z/conda-meta/pinned` with content similar to:
+
+    pytorch ==X.Y.Z
+    
+For more [info on pinning see the Conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#preventing-packages-from-updating-pinning).
+
+
 #### 1.2.0
 
 Created as:
