@@ -21,7 +21,7 @@ Activate the miniconda environment:
 
 List current environments:
 
-    conda info --envs
+    conda env list
 
 List contents of the current environment:
 
@@ -62,6 +62,7 @@ Created as:
     conda install pytorch==1.2.0 cudatoolkit -c pytorch
     conda install torchvision torchtext torchaudio -c pytorch
     conda install librosa -c conda-forge
+    conda install tensorboardx -c conda-forge
     
 Apex installed same as below.
 
@@ -74,10 +75,42 @@ Created as:
     conda activate pytorch-1.1.0
     conda install pytorch==1.1.0 torchvision==0.2.2 cudatoolkit -c pytorch
     conda install tensorboardx -c conda-forge
-    
-##### apex
+    conda install librosa sox -c conda-forge
 
-    module load pytorch/1.1.0 gcc/7.4.0
+Torchaudio as below.
+
+#### 1.0.1
+
+Created as:
+
+    conda activate python-data-3.7.3-1
+
+    conda create --name pytorch-1.0.1 --clone python-data-3.7.3-1
+
+    conda activate pytorch-1.0.1
+    conda install pytorch==1.0.1 cudatoolkit -c pytorch
+    conda install torchvision -c pytorch
+    conda install librosa sox -c conda-forge
+    conda install tensorboardx -c conda-forge
+
+Torchaudio as below.
+
+#### torchaudio
+
+For pytorch<=1.1.0 torchaudio cannot be installed from conda, then you need to do this:
+
+    module load gcc/7.4.0
+    export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.0.130-ayjzbn
+    git clone git://git.code.sf.net/p/sox/code sox
+    git clone https://github.com/pytorch/audio torchaudio
+    cd torchaudio
+    rm -rf .git
+    pip install -v --no-cache-dir --global-option=build_ext --global-option="-I/path/to/sox/src/" ./
+
+
+#### apex
+
+    module load gcc/7.4.0
     export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.0.130-ayjzbn
     git clone https://github.com/NVIDIA/apex
     cd apex
