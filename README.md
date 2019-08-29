@@ -4,8 +4,6 @@ Installation is currently based on the miniconda3 distribution, installed in `/a
 
 In general we have one conda environment per Lmod module.  Conda enviroments are supposed to be complete environments on their own and cannot be used in a hierarchical fashion, hence modules like `pytorch` do not depend on `python-data` (which has the basic ML stuff), but is instead created by first cloning `python-data` and then adding stuff to that.  At that point the basic ML stuff is copied to `pytorch`, and later additions to `python-data` will not automatically come to `pytorch`.  Instead of copying conda will actually hardlink most files, so this does not cause a huge explosion in actual files size.
 
-(For now you can activate several at once with Lmod, but we might have to disable that in the future (by adding `reject` commands in the modulefile), as conda environments are not supposed to be use together.)
-
 Conda environments cannot have "/" in their name so conda environment `pytorch-1.1.0` corresponds to the Lmod module `pytorch/1.1.0`.
 
 First:
@@ -32,6 +30,8 @@ Remove environment if you mess something up:
     conda env remove --name foo-1.2.3
     
 ## Current conda environments and modules
+
+**NOTE** In the future we should try to specify as much as possible in an environment yaml file, and install as in `python-data`.  An [example file](https://github.com/CSCfi/puhti-ml/blob/master/conda-envs/pytorch/1.2.0.yaml.example) is included for pytorch-1.2.0.
 
 ### python-data
 
@@ -231,12 +231,3 @@ There are also some tests that you can run with:
     ./run-tests-gpu.sh
 
 Note: this will run using slurm on the `gpu` partition.  Also for now the compute nodes don't have Internet access so you need to first run it on the login node to download all the models and data (`./run-tests.sh`).
-
-
-## TODO
-
-- Test what happens if user tries to use conda to create own environments
-
-- Test and benchmark things...
-
-- Document things to docs.csc.fi
