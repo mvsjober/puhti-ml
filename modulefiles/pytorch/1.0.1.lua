@@ -14,6 +14,6 @@ local libPath = pathJoin(envRoot, 'lib/python3.7')
 
 prepend_path('PATH', pathJoin(envRoot, 'bin'))
 
-prepend_path('PYTHONPATH', pathJoin(libPath))
-prepend_path('PYTHONPATH', pathJoin(libPath, 'lib-dynload'))
 prepend_path('PYTHONPATH', pathJoin(libPath, 'site-packages'))
+prepend_path('PYTHONPATH', pathJoin(libPath, 'lib-dynload'))
+prepend_path('PYTHONPATH', pathJoin(libPath))
