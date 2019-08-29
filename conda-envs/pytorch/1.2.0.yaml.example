@@ -1,0 +1,37 @@
+name: pytorch-1.2.0-example
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - scikit-learn
+  - jupyterlab
+  - pandas
+  - tqdm
+  - seaborn
+  - requests
+  - pillow
+  - h5py
+  - graphviz
+  - matplotlib
+  - nltk
+  - sqlite
+  - spyder
+  - pytest
+  - cython
+  - gensim
+  - xlwt
+  - openpyxl
+  - pydot
+  - dask
+  - pyyaml
+  - py-xgboost
+  - pytables
+
+  - pytorch 1.2.0
+  - cudatoolkit
+  - torchvision
+  - torchtext
+  - torchaudio
+  - librosa
+  - tensorboardx
