@@ -1,9 +1,10 @@
 local condaEnv = 'tensorflow-1.13.1'
-local condaList = subprocess('/appl/soft/ai/miniconda3/condabin/conda list -n ' .. condaEnv)
+local condaList = '/appl/soft/ai/miniconda3/condabin/conda list -n ' .. condaEnv
 
 help([[
          Tensorflow deep learning library for Python
 
+To list the exact packages and versions included a specific module you can run:
 ]] .. condaList)
 
 family("python_ml_env")
