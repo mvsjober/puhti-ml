@@ -1,12 +1,9 @@
 local condaEnv = 'pytorch-1.2.0'
-local condaList = '/appl/soft/ai/miniconda3/condabin/conda list -n ' .. condaEnv
 
 help([[
-         PyTorch machine learning library for Python
+PyTorch machine learning library for Python
 
-To list the exact packages and versions included in this module, you can run:
-    
-    list-packages]])
+For more help see: https://docs.csc.fi/#apps/pytorch/]])
 
 family("python_ml_env")
 

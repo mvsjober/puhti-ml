@@ -1,12 +1,9 @@
 local condaEnv = 'mxnet-1.5.0'
-local condaList = '/appl/soft/ai/miniconda3/condabin/conda list -n ' .. condaEnv
 
 help([[
-         MXNet deep learning library for Python
+MXNet deep learning library for Python
 
-To list the exact packages and versions included in this module, you can run:
-    
-    list-packages]])
+For more help see: https://docs.csc.fi/#apps/mxnet/]])
 
 family("python_ml_env")
 

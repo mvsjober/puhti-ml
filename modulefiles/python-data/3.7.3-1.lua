@@ -1,12 +1,9 @@
 local condaEnv = 'python-data-3.7.3-1'
-local condaList = '/appl/soft/ai/miniconda3/condabin/conda list -n ' .. condaEnv
 
 help([[
 Collection of popular data analytics and machine learning packages for Python
 
-To list the exact packages and versions included in this module, you can run:
-    
-    list-packages]])
+For more help see: https://docs.csc.fi/#apps/python-data/]])
 
 family("python_ml_env")
 
