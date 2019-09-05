@@ -33,6 +33,12 @@ Remove environment if you mess something up:
 
 **NOTE** In the future we should try to specify as much as possible in an environment yaml file, and install as in `python-data`.  An [example file](https://github.com/CSCfi/puhti-ml/blob/master/conda-envs/pytorch/1.2.0.yaml.example) is included for pytorch-1.2.0.
 
+**NOTE** Some additional stuff done manually after installation:
+
+- installed pip in all envs (`conda install pip`)
+- installed visdom in all PyTorch envs (`pip install --no-cache-dir visdom`)
+
+
 ### python-data
 
 Includes common machine learning and data analytics packages for Python such as [SciPy](https://www.scipy.org/), [NumPy](http://www.numpy.org/), [pandas](https://pandas.pydata.org/) and [scikit-learn](https://scikit-learn.org/stable/).
@@ -54,7 +60,6 @@ At the end of each pytorch install I have also pinned the pytorch version by add
     pytorch ==X.Y.Z
     
 For more [info on pinning see the Conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#preventing-packages-from-updating-pinning).
-
 
 #### 1.2.0
 
