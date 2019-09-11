@@ -29,6 +29,10 @@ Remove environment if you mess something up:
 
     conda env remove --name foo-1.2.3
     
+List all available versions of a conda package:
+
+    conda search -f foo
+    
 ## Current conda environments and modules
 
 **NOTE** In the future we should try to specify as much as possible in an environment yaml file, and install as in `python-data`.  An [example file](https://github.com/CSCfi/puhti-ml/blob/master/conda-envs/pytorch/1.2.0.yaml.example) is included for pytorch-1.2.0.
@@ -134,6 +138,16 @@ For pytorch<=1.1.0 torchaudio cannot be installed from conda, then you need to d
 Includes [Tensorflow](https://www.tensorflow.org/) and related packages.
 
 Version numbering is based on the Tensorflow version.
+
+#### 2.0.0
+
+Created as:
+
+    conda create --name tensorflow-2.0.0 --clone python-data-3.7.3-1
+    
+    conda activate tensorflow-2.0.0
+    conda install cudatoolkit==10.0.130 cudnn cupti
+    pip install tensorflow-gpu==2.0.0-rc0 keras
 
 #### 1.14.0
 
