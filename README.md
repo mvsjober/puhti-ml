@@ -51,7 +51,7 @@ Version numbering is `x.y.z-n`, where `x.y.z` is the Python version included, an
 
 Created as:
 
-    conda env create -f python-data/3.7.3-1.yaml
+    conda env create -f conda-envs/python-data/3.7.3-1.yaml
 
 ### pytorch
 
