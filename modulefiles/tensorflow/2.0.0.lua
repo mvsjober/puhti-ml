@@ -5,10 +5,6 @@ Tensorflow deep learning library for Python
 
 For more help see: https://docs.csc.fi/#apps/tensorflow/]])
 
-if (mode() == "load") then
-  LmodMessage("Warning: This module is under construction and may be modified at any time.")
-end
-
 family("python_ml_env")
 
 local condaRoot = '/appl/soft/ai/miniconda3'
