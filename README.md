@@ -148,6 +148,11 @@ Created as:
     conda activate tensorflow-2.0.0
     conda install cudatoolkit==10.0.130 cudnn cupti
     pip install tensorflow-gpu==2.0.0-rc0 keras
+    
+Later, when 2.0.0 was released:
+
+    conda activate tensorflow-2.0.0
+    pip install --upgrade tensorflow-gpu==2.0.0
 
 #### 1.14.0
 
