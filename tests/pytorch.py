@@ -9,7 +9,7 @@ class TestPytorch(unittest.TestCase):
     def test_versions(self):
         import torch
         import torch.nn
-        self.assertEqual(LV(torch.__version__), LV("1.2.0"))
+        self.assertEqual(LV(torch.__version__), LV("1.3.0"))
 
         import torchvision
         self.assertGreaterEqual(LV(torchvision.__version__), LV("0.4"))
@@ -17,6 +17,10 @@ class TestPytorch(unittest.TestCase):
         import torchtext
         import torchaudio
         import librosa
+        import tensorboardX
+        import dask_jobqueue
+        import transformers
+        import visdom
 
     def test_cuda(self):
         import torch

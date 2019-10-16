@@ -2,12 +2,15 @@
 
 # module use modulefiles
 
-PACKAGES=$(find modulefiles -name *.lua | cut -d / -f 2 | sort -u)
+if [ -z $PACKAGES ]
+then
+    PACKAGES=$(find modulefiles -name *.lua | cut -d / -f 2 | sort -u)
+fi
 REPORT=""
 
 for PKG in $PACKAGES
 do
-    SCRIPT="tests/${PKG/-/_}.py"
+    SCRIPT="tests/${PKG/\/*/}.py"
     if [ -f $SCRIPT ]; then
         echo "=== Running tests for ${PKG} ==="
         module purge

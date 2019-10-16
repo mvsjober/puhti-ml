@@ -1,9 +1,12 @@
-name: pytorch-1.2.0-example
+name: pytorch-1.3.0
 channels:
   - pytorch
   - conda-forge
   - defaults
 dependencies:
+  - python=3.7
+  - pytorch=1.3.0
+  - magma-cuda100
   - scikit-learn
   - scipy
   - jupyterlab
@@ -30,11 +33,14 @@ dependencies:
   - py-xgboost
   - pytables
   - netcdf4
-
-  - pytorch=1.2.0
   - cudatoolkit
   - torchvision
   - torchtext
-  - torchaudio
   - librosa
+  - sox
   - tensorboardx
+  - pip
+  - pip:
+    - regex
+    - transformers
+    - visdom

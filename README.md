@@ -2,7 +2,7 @@
 
 Installation is currently based on the miniconda3 distribution, installed in `/appl/soft/ai/miniconda3`.  Users need not concern themselves with conda, software is taken into use with the normal module system.
 
-In general we have one conda environment per Lmod module.  Conda enviroments are supposed to be complete environments on their own and cannot be used in a hierarchical fashion, hence modules like `pytorch` do not depend on `python-data` (which has the basic ML stuff), but is instead created by first cloning `python-data` and then adding stuff to that.  At that point the basic ML stuff is copied to `pytorch`, and later additions to `python-data` will not automatically come to `pytorch`.  Instead of copying conda will actually hardlink most files, so this does not cause a huge explosion in actual files size.
+In general we have one conda environment per Lmod module.  Conda enviroments are supposed to be complete environments on their own and cannot be used in a hierarchical fashion, hence modules like `pytorch` do not depend on `python-data` (which has the basic ML stuff).  However, at least in theory conda should be able to symlink common files.
 
 Conda environments cannot have "/" in their name so conda environment `pytorch-1.1.0` corresponds to the Lmod module `pytorch/1.1.0`.
 
@@ -13,7 +13,8 @@ First:
 
 Activate the miniconda environment:
 
-    eval "$(/appl/soft/ai/miniconda3/bin/conda shell.bash hook)"
+    source /appl/soft/ai/miniconda3/etc/profile.d/conda.sh
+
 
 ## Useful commands
 
@@ -35,14 +36,6 @@ List all available versions of a conda package:
     
 ## Current conda environments and modules
 
-**NOTE** In the future we should try to specify as much as possible in an environment yaml file, and install as in `python-data`.  An [example file](https://github.com/CSCfi/puhti-ml/blob/master/conda-envs/pytorch/1.2.0.yaml.example) is included for pytorch-1.2.0.
-
-**NOTE** Some additional stuff done manually after installation:
-
-- installed pip in all envs (`conda install pip`)
-- installed visdom in all PyTorch envs (`pip install --no-cache-dir visdom`)
-
-
 ### python-data
 
 Includes common machine learning and data analytics packages for Python such as [SciPy](https://www.scipy.org/), [NumPy](http://www.numpy.org/), [pandas](https://pandas.pydata.org/) and [scikit-learn](https://scikit-learn.org/stable/).
@@ -59,11 +52,35 @@ Includes [PyTorch](https://pytorch.org/) and related packages.
 
 Version numbering is based on the PyTorch version.
 
-At the end of each pytorch install I have also pinned the pytorch version by adding a file `/appl/soft/ai/miniconda3/envs/pytorch-X.Y.Z/conda-meta/pinned` with content similar to:
+#### 1.3.0
 
-    pytorch ==X.Y.Z
-    
-For more [info on pinning see the Conda docs](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#preventing-packages-from-updating-pinning).
+Created as:
+
+    conda env create -f conda-envs/pytorch/1.3.0.yaml
+
+In case a conda or pip package needs to be added later, add it to the yaml file, and run:
+
+    conda env update -f conda-envs/pytorch/1.3.0.yaml
+
+Apex still needs to be installed manually (conda-forge has nvidia-apex, but only for Python 3.6...):
+
+    conda activate pytorch-1.3.0
+    module load gcc/8.3.0
+    export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.1.168-mrdepn/
+    git clone https://github.com/NVIDIA/apex
+    cd apex
+    rm -rf .git
+    pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+
+Torchaudio in conda seems to be broken (maybe not compiled yet for pytorch 1.3.0 as of 16.10.2019), hence manual install was needed:
+
+    conda activate pytorch-1.3.0
+    module load gcc/8.3.0
+    export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.1.168-mrdepn/
+    git clone https://github.com/pytorch/audio torchaudio
+    cd torchaudio
+    rm -rf .git
+    pip install -v --no-cache-dir --global-option=build_ext --global-option="-I/projappl/project_2001659/mvsjober/sox/src/" .
 
 #### 1.2.0
 
@@ -255,3 +272,7 @@ There are also some tests that you can run with:
     ./run-tests-gpu.sh
 
 Note: this will run using slurm on the `gpu` partition.  Also for now the compute nodes don't have Internet access so you need to first run it on the login node to download all the models and data (`./run-tests.sh`).
+
+By default the tests are run for the default version of each of the modules.  If you want to run the test only for a specific module or version you can do like this:
+
+    PACKAGES=pytorch/1.3.0 ./run-tests-gpu.sh
