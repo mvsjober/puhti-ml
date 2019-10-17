@@ -1,7 +1,6 @@
-name: pytorch-1.3.0
+name: pytorch-1.3.0-1
 channels:
   - pytorch
-  - conda-forge
   - defaults
 dependencies:
   - python=3.7
@@ -28,7 +27,6 @@ dependencies:
   - openpyxl
   - pydot
   - dask
-  - dask-jobqueue
   - pyyaml
   - py-xgboost
   - pytables
@@ -36,9 +34,10 @@ dependencies:
   - cudatoolkit
   - torchvision
   - torchtext
-  - librosa
-  - sox
-  - tensorboardx
+  - conda-forge::dask-jobqueue
+  - conda-forge::librosa
+  - conda-forge::sox
+  - conda-forge::tensorboardx
   - pip
   - pip:
     - regex

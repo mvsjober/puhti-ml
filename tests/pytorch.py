@@ -21,6 +21,7 @@ class TestPytorch(unittest.TestCase):
         import dask_jobqueue
         import transformers
         import visdom
+        import apex
 
     def test_cuda(self):
         import torch

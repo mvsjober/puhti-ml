@@ -64,7 +64,7 @@ In case a conda or pip package needs to be added later, add it to the yaml file,
 
 Apex still needs to be installed manually (conda-forge has nvidia-apex, but only for Python 3.6...):
 
-    conda activate pytorch-1.3.0
+    conda activate pytorch-1.3.0-1
     module load gcc/8.3.0
     export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.1.168-mrdepn/
     git clone https://github.com/NVIDIA/apex
@@ -74,13 +74,18 @@ Apex still needs to be installed manually (conda-forge has nvidia-apex, but only
 
 Torchaudio in conda seems to be broken (maybe not compiled yet for pytorch 1.3.0 as of 16.10.2019), hence manual install was needed:
 
-    conda activate pytorch-1.3.0
+    conda activate pytorch-1.3.0-1
     module load gcc/8.3.0
     export CUDA_HOME=/appl/spack/install-tree/gcc-8.3.0/cuda-10.1.168-mrdepn/
     git clone https://github.com/pytorch/audio torchaudio
     cd torchaudio
     rm -rf .git
     pip install -v --no-cache-dir --global-option=build_ext --global-option="-I/projappl/project_2001659/mvsjober/sox/src/" .
+
+Finally, for some reason I had to reinstall `regex` (`_regex.cpython-37m-x86_64-linux-gnu.so: undefined symbol: _intel_fast_memcpy
+`):
+
+    pip install --force-reinstall --no-cache-dir regex
 
 #### 1.2.0
 
