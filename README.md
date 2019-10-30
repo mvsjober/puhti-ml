@@ -45,6 +45,11 @@ Version numbering is `x.y.z-n`, where `x.y.z` is the Python version included, an
 Created as:
 
     conda env create -f conda-envs/python-data/3.7.3-1.yaml
+    
+Later:
+
+    conda activate python-data-3.7.3-1
+    conda install -c conda-forge imbalanced-learn
 
 ### pytorch
 
@@ -178,6 +183,7 @@ Later, when 2.0.0 was released:
 Ever later:
 
     conda install geopandas rasterio
+    conda install -c conda-forge imbalanced-learn
 
 #### 2.0.0-hvd
 
