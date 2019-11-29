@@ -13,7 +13,7 @@ First:
 
 Activate the miniconda environment:
 
-    source /appl/soft/ai/miniconda3/etc/profile.d/conda.sh
+    eval "$(/appl/soft/ai/miniconda3/bin/conda shell.bash hook)"
 
 
 ## Useful commands
