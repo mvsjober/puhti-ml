@@ -184,6 +184,11 @@ Ever later:
 
     conda install geopandas rasterio
     conda install -c conda-forge imbalanced-learn
+    
+And, to enable tensorboard.dev:
+
+    conda activate tensorflow-2.0.0
+    pip install --upgrade tensorboard==2.0.1
 
 #### 2.0.0-hvd
 
