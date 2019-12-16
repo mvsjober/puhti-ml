@@ -2,9 +2,9 @@
 
 Installation is currently based on the miniconda3 distribution, installed in `/appl/soft/ai/miniconda3`.  Users need not concern themselves with conda, software is taken into use with the normal module system.
 
-In general we have one conda environment per Lmod module.  Conda enviroments are supposed to be complete environments on their own and cannot be used in a hierarchical fashion, hence modules like `pytorch` do not depend on `python-data` (which has the basic ML stuff).  However, at least in theory conda should be able to symlink common files.
+In general we have one conda environment per Lmod module.  Conda enviroments are supposed to be complete environments on their own and cannot be used in a hierarchical fashion, hence modules like `pytorch` do not depend on `python-data` (which has the basic ML stuff).  However, at least in theory conda should be able to symlink common files to save disk space.
 
-Conda environments cannot have "/" in their name so conda environment `pytorch-1.1.0` corresponds to the Lmod module `pytorch/1.1.0`.
+Conda environments cannot have "/" in their name so for example the conda environment `pytorch-1.3.0` corresponds to the Lmod module `pytorch/1.3.0`.
 
 First:
 
@@ -33,7 +33,19 @@ Remove environment if you mess something up:
 List all available versions of a conda package:
 
     conda search -f foo
+
+List all available versions in an alternative channel:
+
+    conda search -c conda-forge -f foo
     
+Export list of installed packages
+
+    conda env export > my-list.yaml
+
+Create new environment based on yaml list:
+
+    conda env create -f my-list.yaml
+
 ## Current conda environments and modules
 
 ### python-data
