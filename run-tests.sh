@@ -10,7 +10,8 @@ REPORT=""
 
 for PKG in $PACKAGES
 do
-    SCRIPT="tests/${PKG/\/*/}.py"
+    BASE_PKG=${PKG/\/*/}
+    SCRIPT="tests/${BASE_PKG/-/_}.py"
     if [ -f $SCRIPT ]; then
         echo "=== Running tests for ${PKG} ==="
         module purge
