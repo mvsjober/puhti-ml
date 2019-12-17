@@ -3,16 +3,25 @@
 import unittest
 from distutils.version import LooseVersion as LV
 
+import os
+
+mod_version = os.getenv('MOD_VERSION')
 
 class TestPytorch(unittest.TestCase):
 
     def test_versions(self):
         import torch
         import torch.nn
-        self.assertEqual(LV(torch.__version__), LV("1.3.1"))
+        if mod_version == '1.0.1':
+            self.assertEqual(torch.__version__, '1.0.1.post2')
+        else:
+            self.assertEqual(LV(torch.__version__), LV(mod_version))
 
         import torchvision
-        self.assertGreaterEqual(LV(torchvision.__version__), LV("0.4"))
+        if LV(torch.__version__) >= LV("1.2"):
+            self.assertGreaterEqual(LV(torchvision.__version__), LV("0.4"))
+        else:
+            self.assertGreaterEqual(LV(torchvision.__version__), LV("0.2"))
 
         import torchtext
         import torchaudio

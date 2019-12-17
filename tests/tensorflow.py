@@ -4,17 +4,24 @@ import unittest
 from distutils.version import LooseVersion as LV
 
 import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+mod_version = os.getenv('MOD_VERSION')
+
+is_tf2 = LV(mod_version) >= LV("2.0")
 
 
 class TestTensorflow(unittest.TestCase):
 
     def test_versions(self):
         import tensorflow as tf
-        self.assertEqual(LV(tf.__version__), LV("1.14.0"))
+        self.assertEqual(LV(tf.__version__), LV(mod_version))
 
         import keras
         self.assertGreaterEqual(LV(keras.__version__), LV("2.0"))
+
+        if is_tf2:
+            self.assertGreaterEqual(LV(keras.__version__), LV("2.2.4"))
 
     def test_keras_backend(self):
         from keras import backend as K
@@ -26,21 +33,36 @@ class TestTensorflow(unittest.TestCase):
 
     def test_add(self):
         import tensorflow as tf
-        sess = tf.Session()
+        if is_tf2:
+            a = tf.constant(10)
+            b = tf.constant(32)
+            c = a + b
+        else:
+            sess = tf.Session()
 
-        a = tf.constant(10)
-        b = tf.constant(32)
-        c = sess.run(a + b)
+            a = tf.constant(10)
+            b = tf.constant(32)
+            c = sess.run(a + b)
 
         self.assertEqual(c, 42)
 
     def test_keras_cnn(self):
-        import keras
-        from keras.datasets import mnist
-        from keras.models import Sequential
-        from keras.layers import Dense, Dropout, Flatten
-        from keras.layers import Conv2D, MaxPooling2D
-        from keras import backend as K
+        if is_tf2:
+            import tensorflow as tf
+            from tensorflow.keras.datasets import mnist
+            from tensorflow.keras.models import Sequential
+            from tensorflow.keras.layers import Dense, Dropout, Flatten
+            from tensorflow.keras.layers import Conv2D, MaxPooling2D
+            from tensorflow.keras import backend as K
+            from tensorflow.keras.utils import to_categorical
+        else:
+            import keras
+            from keras.datasets import mnist
+            from keras.models import Sequential
+            from keras.layers import Dense, Dropout, Flatten
+            from keras.layers import Conv2D, MaxPooling2D
+            from keras import backend as K
+            from keras.utils import to_categorical
 
         from tensorflow.python.util import deprecation
         deprecation._PRINT_DEPRECATION_WARNINGS = False
@@ -50,7 +72,7 @@ class TestTensorflow(unittest.TestCase):
 
         batch_size = 128
         num_classes = 10
-        epochs = 2
+        epochs = 5
 
         # input image dimensions
         img_rows, img_cols = 28, 28
@@ -73,8 +95,8 @@ class TestTensorflow(unittest.TestCase):
         x_test /= 255
 
         # convert class vectors to binary class matrices
-        y_train = keras.utils.to_categorical(y_train, num_classes)
-        y_test = keras.utils.to_categorical(y_test, num_classes)
+        y_train = to_categorical(y_train, num_classes)
+        y_test = to_categorical(y_test, num_classes)
 
         model = Sequential()
         model.add(Conv2D(32, kernel_size=(3, 3),
@@ -88,8 +110,8 @@ class TestTensorflow(unittest.TestCase):
         model.add(Dropout(0.5))
         model.add(Dense(num_classes, activation='softmax'))
 
-        model.compile(loss=keras.losses.categorical_crossentropy,
-                      optimizer=keras.optimizers.Adadelta(),
+        model.compile(loss='categorical_crossentropy',
+                      optimizer='adam',
                       metrics=['accuracy'])
 
         model.fit(x_train, y_train,

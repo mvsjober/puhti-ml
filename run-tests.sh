@@ -4,13 +4,14 @@
 
 if [ -z $PACKAGES ]
 then
-    PACKAGES=$(find modulefiles -name *.lua | cut -d / -f 2 | sort -u)
+    PACKAGES=$(find modulefiles -name *.lua | cut -d / -f 2- | sed 's/\.lua$//' | grep -v hvd | grep -v cpu)
 fi
 REPORT=""
 
 for PKG in $PACKAGES
 do
     BASE_PKG=${PKG/\/*/}
+    export MOD_VERSION=${PKG/*\//}
     SCRIPT="tests/${BASE_PKG/-/_}.py"
     if [ -f $SCRIPT ]; then
         echo "=== Running tests for ${PKG} ==="
