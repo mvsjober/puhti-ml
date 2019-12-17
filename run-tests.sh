@@ -22,7 +22,7 @@ do
         if PYTHONWARNINGS="d,i::ImportWarning,i::DeprecationWarning,i::ResourceWarning" python3 -m unittest -v $SCRIPT; then
             STATUS="SUCCESS"
         else
-            STATUS="FAILURE"
+            STATUS="$(tput bold)$(tput setaf 1)FAILURE$(tput sgr0)"
         fi
     else
         echo "=== WARNING: $SCRIPT not found, i.e., there are no tests for $PKG ==="

@@ -23,14 +23,21 @@ class TestPytorch(unittest.TestCase):
         else:
             self.assertGreaterEqual(LV(torchvision.__version__), LV("0.2"))
 
-        import torchtext
+        if LV(torch.__version__) >= LV("1.2"):
+            import torchtext
+            import dask_jobqueue
         import torchaudio
         import librosa
         import tensorboardX
-        import dask_jobqueue
-        import transformers
-        import visdom
-        import apex
+
+        if LV(torch.__version__) >= LV("1.3"):
+            import transformers
+            import visdom
+        elif LV(torch.__version__) >= LV("1.2"):
+            import pytorch_transformers
+
+        if LV(torch.__version__) >= LV("1.1"):
+            import apex
 
     def test_cuda(self):
         import torch
