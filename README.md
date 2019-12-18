@@ -76,6 +76,26 @@ Created as:
 
 For older PyTorch installations see [pytorch.md](pytorch.md).
 
+#### 1.3.1-hvd
+
+PyTorch with [horovod](https://github.com/horovod/horovod) support.
+
+Created as:
+
+    conda create --name pytorch-hvd-1.3.1 --clone pytorch-1.3.1-1
+    conda activate pytorch-hvd-1.3.1
+    conda install gcc_linux-64 gxx_linux-64
+    conda install cudatoolkit-dev -c conda-forge
+    
+    ml purge
+    ml gcc/8.3.0 hpcx-mpi/2.4.0
+    
+    
+    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.8-1+cuda10.1_x86_64 \
+                     HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_PYTORCH=1 \
+                     HOROVOD_WITHOUT_TENSORFLOW=1 HOROVOD_WITHOUT_MXNET=1 \
+                     pip install -v --no-cache-dir horovod
+    
 
 ### tensorflow
 
