@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z $CONDA_DEFAULT_ENV ]; then
+    echo "No machine learning module has been activated."
+    echo
+    echo "Activate, e.g., with:"
+    echo "    module load python-data"
+    echo
+else
+    PYTHONPATH=/appl/soft/ai/miniconda3/lib/python3.7 \
+	/appl/soft/ai/miniconda3/condabin/conda list -n $CONDA_DEFAULT_ENV
+fi

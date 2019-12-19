@@ -1,0 +1,12 @@
+#!/bin/bash
+
+PIP_PATH="/appl/soft/ai/miniconda3/envs/${CONDA_DEFAULT_ENV}/bin/pip"
+if [ -z "$CONDA_DEFAULT_ENV" -o ! -f "$PIP_PATH" ]; then
+    echo "No machine learning module has been activated."
+    echo
+    echo "Activate, e.g., with:"
+    echo "    module load python-data"
+    echo
+else
+    $PIP_PATH $*
+fi
