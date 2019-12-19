@@ -76,6 +76,26 @@ Created as:
 
 For older PyTorch installations see [pytorch.md](pytorch.md).
 
+#### 1.3.1-hvd
+
+PyTorch with [horovod](https://github.com/horovod/horovod) support.
+
+Created as:
+
+    conda create --name pytorch-hvd-1.3.1 --clone pytorch-1.3.1-1
+    conda activate pytorch-hvd-1.3.1
+    conda install gcc_linux-64 gxx_linux-64
+    conda install cudatoolkit-dev -c conda-forge
+    
+    ml purge
+    ml gcc/8.3.0 hpcx-mpi/2.4.0
+    
+    
+    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.4.8-1+cuda10.1_x86_64 \
+                     HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_PYTORCH=1 \
+                     HOROVOD_WITHOUT_TENSORFLOW=1 HOROVOD_WITHOUT_MXNET=1 \
+                     pip install -v --no-cache-dir horovod
+    
 
 ### tensorflow
 
@@ -148,12 +168,23 @@ Version numbering is based on the MXNet version.
 Created as:
 
     conda create --name mxnet-1.5.0 --clone python-data-3.7.3-1
-
     conda activate mxnet-1.5.0
     conda install cudatoolkit cudnn mkl-dnn
     pip install mxnet-cu101mkl
     conda install tensorboardx -c conda-forge
 
+### rapids
+
+Includes [Rapids](https://rapids.ai/) suite of libraries.
+
+Version numbering is based on the Rapids version.
+
+Created as:
+
+    conda create --name rapids-0.11 --clone python-data-3.7.3-1
+    conda activate rapids-0.11
+    conda install cudatoolkit==10.0.130 cupti
+    conda install -c rapidsai -c nvidia -c conda-forge -c defaults rapids=0.11 python=3.7
 
 ## Module files
 
