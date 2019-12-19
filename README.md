@@ -168,12 +168,23 @@ Version numbering is based on the MXNet version.
 Created as:
 
     conda create --name mxnet-1.5.0 --clone python-data-3.7.3-1
-
     conda activate mxnet-1.5.0
     conda install cudatoolkit cudnn mkl-dnn
     pip install mxnet-cu101mkl
     conda install tensorboardx -c conda-forge
 
+### rapids
+
+Includes [Rapids](https://rapids.ai/) suite of libraries.
+
+Version numbering is based on the Rapids version.
+
+Created as:
+
+    conda create --name rapids-0.11 --clone python-data-3.7.3-1
+    conda activate rapids-0.11
+    conda install cudatoolkit==10.0.130 cupti
+    conda install -c rapidsai -c nvidia -c conda-forge -c defaults rapids=0.11 python=3.7
 
 ## Module files
 
