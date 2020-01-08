@@ -42,6 +42,8 @@ dependencies:
   - openpyxl
   - regex
   - conda-forge::umap-learn
+  - tensorboard 
+  - imageio
   - conda-forge::dask-jobqueue
   - conda-forge::sox
   - conda-forge::librosa
