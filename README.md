@@ -48,6 +48,8 @@ Create new environment based on yaml list:
 
 ## Current conda environments and modules
 
+Ideally, every installation should be based on a single yaml file.  Later manual installations could be added to a new yaml file, e.g. `next-version.yaml`, so that every subsequent version would include also manually installed packages.
+
 ### python-data
 
 Includes common machine learning and data analytics packages for Python such as [SciPy](https://www.scipy.org/), [NumPy](http://www.numpy.org/), [pandas](https://pandas.pydata.org/) and [scikit-learn](https://scikit-learn.org/stable/).
@@ -205,3 +207,19 @@ Note: this will run using slurm on the `gpu` partition.  Also for now the comput
 By default the tests are run for the default version of each of the modules.  If you want to run the test only for a specific module or version you can do like this:
 
     PACKAGES=pytorch/1.3.0 ./run-tests-gpu.sh
+
+## Singularity
+
+In addition to conda-installations one can also use singularity images, which can be created from Docker images, see [notes on conversion and running existing containers](https://docs.csc.fi/#computing/containers/run-existing/).
+
+Images are placed in `/appl/soft/ai/singularity/images/`, and each image should have a corresponding module file in `/appl/soft/ai/singularity/modulefiles/`.
+
+Usage:
+
+    module use /appl/soft/ai/singularity/modulefiles/
+    module avail  # to see existing images
+    module load nvidia-pytorch/19.11-py3
+
+Testing by starting a Python interpreter inside the container:
+
+    srun -A project_2001659 -n 1 -c 10 -p gputest --gres=gpu:v100:1 -t 15 --mem=64G --pty singularity_wrapper run python3
