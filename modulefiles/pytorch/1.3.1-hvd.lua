@@ -22,5 +22,6 @@ prepend_path('PYTHONPATH', pathJoin(libPath, 'lib-dynload'))
 prepend_path('PYTHONPATH', pathJoin(libPath))
 
 prepend_path('LD_LIBRARY_PATH', '/appl/soft/ai/nccl/nccl_2.4.8-1+cuda10.1_x86_64/lib/')
+prepend_path('LD_LIBRARY_PATH', '/appl/soft/ai/miniconda3/envs/pytorch-hvd-1.3.1/pkgs/cuda-toolkit/lib64/')
 
 setenv('CONDA_DEFAULT_ENV', condaEnv)
