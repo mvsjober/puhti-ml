@@ -3,7 +3,7 @@ local condaEnv = 'python-data-3.7.3-1'
 help([[
 Collection of popular data analytics and machine learning packages for Python
 
-For more help see: https://docs.csc.fi/#apps/python-data/]])
+For more help see: https://docs.csc.fi/apps/python-data/]])
 
 family("python_ml_env")
 

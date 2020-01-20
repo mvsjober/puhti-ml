@@ -3,7 +3,7 @@ local condaEnv = 'pytorch-hvd-1.3.1'
 help([[
 PyTorch machine learning library for Python
 
-For more help see: https://docs.csc.fi/#apps/pytorch/]])
+For more help see: https://docs.csc.fi/apps/pytorch/]])
 
 family("python_ml_env")
 

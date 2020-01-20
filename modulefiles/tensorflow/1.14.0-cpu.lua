@@ -3,7 +3,7 @@ local condaEnv = 'tensorflow-cpu-1.14.0'
 help([[
 Tensorflow deep learning library for Python
 
-For more help see: https://docs.csc.fi/#apps/tensorflow/]])
+For more help see: https://docs.csc.fi/apps/tensorflow/]])
 
 family("python_ml_env")
 

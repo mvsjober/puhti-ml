@@ -3,7 +3,7 @@ local condaEnv = 'mxnet-1.5.0'
 help([[
 MXNet deep learning library for Python
 
-For more help see: https://docs.csc.fi/#apps/mxnet/]])
+For more help see: https://docs.csc.fi/apps/mxnet/]])
 
 family("python_ml_env")
 
