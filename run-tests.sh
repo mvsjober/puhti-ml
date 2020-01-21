@@ -4,7 +4,7 @@
 
 if [ -z $PACKAGES ]
 then
-    PACKAGES=$(find modulefiles -name *.lua | cut -d / -f 2- | sed 's/\.lua$//' | grep -v hvd | grep -v cpu)
+    PACKAGES=$(find modulefiles -name *.lua | cut -d / -f 2- | sed 's/\.lua$//' | grep -v cpu)
 fi
 REPORT=""
 
