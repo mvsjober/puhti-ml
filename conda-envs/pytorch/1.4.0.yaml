@@ -1,0 +1,57 @@
+name: pytorch-1.4.0
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.7
+  - pytorch=1.4.0
+  - magma-cuda100
+  - cudatoolkit
+  - torchvision
+  - torchtext
+  - pytorch-nightly::torchaudio
+  - scikit-learn
+  - scipy
+  - jupyterlab
+  - pandas
+  - tqdm
+  - seaborn
+  - requests
+  - pillow
+  - h5py
+  - graphviz
+  - matplotlib
+  - nltk
+  - sqlite
+  - spyder
+  - pytest
+  - cython
+  - gensim
+  - xlwt
+  - openpyxl
+  - pydot
+  - dask
+  - pyyaml
+  - py-xgboost
+  - pytables
+  - netcdf4
+  - imbalanced-learn
+  - python-lmdb
+  - mysql-connector-python
+  - lxml
+  - openpyxl
+  - regex
+  - conda-forge::umap-learn
+  - tensorboard 
+  - imageio
+  - conda-forge::dask-jobqueue
+  - conda-forge::sox
+  - conda-forge::librosa
+  - conda-forge::tensorboardx
+  - conda-forge::nvidia-apex
+  - conda-forge::visdom
+  - conda-forge::odfpy
+  - pip
+  - pip:
+    - transformers
+

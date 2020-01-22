@@ -69,12 +69,13 @@ Includes [PyTorch](https://pytorch.org/) and related packages.
 
 Version numbering is based on the PyTorch version.
 
-#### 1.3.1
+#### 1.4 and 1.3.1
 
 Created as:
 
-    conda env create -f conda-envs/pytorch/1.3.1.yaml
+    conda env create -f conda-envs/pytorch/X.Y.yaml
 
+where `X.Y` is the corresponding version number.
 
 For older PyTorch installations see [pytorch.md](pytorch.md).
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import unittest
-from distutils.version import LooseVersion as LV
+# from distutils.version import LooseVersion as LV
+from packaging.version import Version as LV
 
 import os
 
