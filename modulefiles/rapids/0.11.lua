@@ -3,7 +3,7 @@ local condaEnv = 'rapids-0.11'
 help([[
 Collection of libraries for data science and analytics on GPUs
 
-For more help see: https://docs.csc.fi/#apps/rapids/]])
+For more help see: https://docs.csc.fi/apps/rapids/]])
 
 family("python_ml_env")
 

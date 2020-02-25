@@ -1,21 +1,31 @@
 #!/usr/bin/env python3
 
 import unittest
-from distutils.version import LooseVersion as LV
+# from distutils.version import LooseVersion as LV
+from packaging.version import Version as LV
 
 import os
 
-mod_version = os.getenv('MOD_VERSION')
+mv_parts = os.getenv('MOD_VERSION').split('-', 1)
+mod_version = mv_parts[0]
+mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
 
 class TestPytorch(unittest.TestCase):
-
     def test_versions(self):
+        global mod_version
+
         import torch
         import torch.nn
+
         if mod_version == '1.0.1':
             self.assertEqual(torch.__version__, '1.0.1.post2')
         else:
             self.assertEqual(LV(torch.__version__), LV(mod_version))
+
+        if 'hvd' in mod_version_spec:
+            import horovod
+            import horovod.torch as hvd
+            self.assertGreaterEqual(LV(horovod.__version__), LV("0.18.2"))
 
         import torchvision
         if LV(torch.__version__) >= LV("1.2"):
@@ -38,6 +48,17 @@ class TestPytorch(unittest.TestCase):
 
         if LV(torch.__version__) >= LV("1.1"):
             import apex
+
+    def test_magma(self):
+        import torch
+        use_cuda = torch.cuda.is_available()
+        device = torch.device("cuda" if use_cuda else "cpu")
+
+        x = torch.randn(10, 10).to(device)
+        y = x.inverse()
+        self.assertTrue(y[0][0].item() > -1.0)
+        self.assertTrue(torch.cuda.has_magma)
+
 
     def test_cuda(self):
         import torch

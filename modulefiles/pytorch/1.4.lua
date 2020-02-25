@@ -1,9 +1,9 @@
-local condaEnv = 'tensorflow-1.14.0'
+local condaEnv = 'pytorch-1.4.0'
 
 help([[
-Tensorflow deep learning library for Python
+PyTorch machine learning library for Python
 
-For more help see: https://docs.csc.fi/apps/tensorflow/]])
+For more help see: https://docs.csc.fi/apps/pytorch/]])
 
 family("python_ml_env")
 

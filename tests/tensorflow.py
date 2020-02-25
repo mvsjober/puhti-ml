@@ -6,7 +6,10 @@ from distutils.version import LooseVersion as LV
 import os
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-mod_version = os.getenv('MOD_VERSION')
+
+mv_parts = os.getenv('MOD_VERSION').split('-', 1)
+mod_version = mv_parts[0]
+mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
 
 is_tf2 = LV(mod_version) >= LV("2.0")
 

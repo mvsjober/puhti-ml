@@ -3,7 +3,7 @@ local condaEnv = 'tensorflow-hvd-1.13.1'
 help([[
 Tensorflow deep learning library for Python
 
-For more help see: https://docs.csc.fi/#apps/tensorflow/]])
+For more help see: https://docs.csc.fi/apps/tensorflow/]])
 
 family("python_ml_env")
 
