@@ -30,9 +30,12 @@ dependencies:
   - mysql-connector-python
   - lxml
   - openpyxl
+  - xlrd
   - conda-forge::umap-learn
   - conda-forge::dask-jobqueue
   - conda-forge::sox
+  - conda-forge::pyhdf
+  - conda-forge::opencv
   - pip
   - pip:
     - odfpy
