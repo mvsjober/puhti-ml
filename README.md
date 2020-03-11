@@ -99,6 +99,24 @@ Created as:
                      HOROVOD_WITHOUT_TENSORFLOW=1 HOROVOD_WITHOUT_MXNET=1 \
                      pip install -v --no-cache-dir horovod
     
+#### 1.3.1-hvd-mpich
+
+Same as above, but with mpich instead of hpcx-mpi:
+
+    conda create --name pytorch-hvd-1.3.1-mpich --clone pytorch-1.3.1-1
+    conda activate pytorch-hvd-1.3.1-mpich'
+    conda install gcc_linux-64 gxx_linux-64
+    conda install cudatoolkit-dev -c conda-forge
+    
+    ml purge
+    ml gcc/8.3.0 mpich/3.3.1
+    
+    CC=$GCC HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.5.6-1+cuda10.1_x86_64 \
+    CUDA_HOME=/appl/soft/ai/miniconda3/envs/pytorch-hvd-1.3.1-mpich/pkgs/cuda-toolkit/ \
+    HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_WITH_PYTORCH=1 \
+    HOROVOD_WITHOUT_TENSORFLOW=1 HOROVOD_WITHOUT_MXNET=1 \
+    pip install -v --no-cache-dir horovod
+
 
 ### tensorflow
 
