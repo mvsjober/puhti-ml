@@ -13,13 +13,21 @@ do
     BASE_PKG=${PKG/\/*/}
     export MOD_VERSION=${PKG/*\//}
     SCRIPT="tests/${BASE_PKG/-/_}.py"
+    
     if [ -f $SCRIPT ]; then
         echo "=== Running tests for ${PKG} ==="
         module purge
         module load $PKG
         module list
-        
-        if PYTHONWARNINGS="d,i::ImportWarning,i::DeprecationWarning,i::ResourceWarning" python3 -m unittest -v $SCRIPT; then
+
+        if [[ "$PKG" =~ .*/nvidia* ]]
+        then
+            CMD="singularity_wrapper exec python3"
+        else
+            CMD="python3"
+        fi
+        echo "Running with $CMD"
+        if PYTHONWARNINGS="d,i::ImportWarning,i::DeprecationWarning,i::ResourceWarning" $CMD -m unittest -v $SCRIPT; then
             STATUS="SUCCESS"
         else
             STATUS="$(tput bold)$(tput setaf 1)FAILURE$(tput sgr0)"

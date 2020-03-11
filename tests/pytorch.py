@@ -1,25 +1,31 @@
 #!/usr/bin/env python3
 
 import unittest
-# from distutils.version import LooseVersion as LV
-from packaging.version import Version as LV
+try:
+    from packaging.version import Version as LV
+except ImportError:
+    from distutils.version import LooseVersion as LV
 
 import os
 
 mv_parts = os.getenv('MOD_VERSION').split('-', 1)
 mod_version = mv_parts[0]
 mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
+nvidia = mod_version == 'nvidia'
 
 class TestPytorch(unittest.TestCase):
     def test_versions(self):
         global mod_version
+
+        if nvidia:
+            print('NOTE: running NVIDIA container, skipping some library tests...')
 
         import torch
         import torch.nn
 
         if mod_version == '1.0.1':
             self.assertEqual(torch.__version__, '1.0.1.post2')
-        else:
+        elif not nvidia:
             self.assertEqual(LV(torch.__version__), LV(mod_version))
 
         if 'hvd' in mod_version_spec:
@@ -35,12 +41,14 @@ class TestPytorch(unittest.TestCase):
 
         if LV(torch.__version__) >= LV("1.2"):
             import torchtext
-            import dask_jobqueue
-        import torchaudio
+            if not nvidia:
+                import dask_jobqueue
+        if not nvidia:
+            import torchaudio
+            import tensorboardX
         import librosa
-        import tensorboardX
 
-        if LV(torch.__version__) >= LV("1.3"):
+        if LV(torch.__version__) >= LV("1.3") and not nvidia:
             import transformers
             import visdom
         elif LV(torch.__version__) >= LV("1.2"):
