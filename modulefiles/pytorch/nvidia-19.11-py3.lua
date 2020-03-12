@@ -1,5 +1,5 @@
-local singName = 'pytorch_20.02-py3.sif'
-local pytorchVersion = '1.5.0a0+3bbb36e'
+local singName = 'pytorch_19.11-py3.sif'
+local pytorchVersion = '1.4.0a0+649135b'
 
 help(string.format([[
 PyTorch machine learning library for Python

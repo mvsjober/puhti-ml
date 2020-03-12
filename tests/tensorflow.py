@@ -11,23 +11,36 @@ mv_parts = os.getenv('MOD_VERSION').split('-', 1)
 mod_version = mv_parts[0]
 mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
 
-is_tf2 = LV(mod_version) >= LV("2.0")
+nvidia = mod_version == 'nvidia'
+if nvidia:
+    is_tf2 = 'tf2' in mod_version_spec
+else:
+    is_tf2 = LV(mod_version) >= LV("2.0")
 
 
 class TestTensorflow(unittest.TestCase):
 
     def test_versions(self):
         import tensorflow as tf
-        self.assertEqual(LV(tf.__version__), LV(mod_version))
+        if not nvidia:
+            self.assertEqual(LV(tf.__version__), LV(mod_version))
+        else:
+            print('NOTE: running NVIDIA container, skipping some tests...')
 
-        import keras
+        if is_tf2:
+            import tensorflow.keras as keras
+        else:
+            import keras
         self.assertGreaterEqual(LV(keras.__version__), LV("2.0"))
 
         if is_tf2:
             self.assertGreaterEqual(LV(keras.__version__), LV("2.2.4"))
 
     def test_keras_backend(self):
-        from keras import backend as K
+        if is_tf2:
+            from tensorflow.keras import backend as K
+        else:
+            from keras import backend as K
         self.assertEqual(K.backend(), "tensorflow")
 
     def test_cuda(self):

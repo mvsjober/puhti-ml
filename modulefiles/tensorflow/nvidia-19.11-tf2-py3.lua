@@ -1,13 +1,13 @@
-local singName = 'pytorch_20.02-py3.sif'
-local pytorchVersion = '1.5.0a0+3bbb36e'
+local singName = 'tensorflow_19.11-tf2-py3.sif'
+local tfVersion = '2.0.0'
 
 help(string.format([[
-PyTorch machine learning library for Python
+Tensorflow deep learning library for Python
 
-PyTorch version %s running in NVIDIA's optimized container: 
-https://ngc.nvidia.com/catalog/containers/nvidia:pytorch
+TensorFlow version %s running in NVIDIA's optimized container: 
+https://ngc.nvidia.com/catalog/containers/nvidia:tensorflow
 
-For more help see: https://docs.csc.fi/apps/pytorch/
+For more help see: https://docs.csc.fi/apps/tensorflow/
 
 NOTE: This software runs in a Singularity container. You need to
 modify your batch job script to run with `singularity_wrapper`, for
@@ -17,7 +17,7 @@ example:
 
 For more information, see:
 https://docs.csc.fi/computing/containers/run-existing/
-]], pytorchVersion))
+]], tfVersion))
 
 local singRoot = '/appl/soft/ai/singularity/'
 family("python_ml_env")
