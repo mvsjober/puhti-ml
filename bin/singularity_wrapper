@@ -1,0 +1,48 @@
+#!/bin/bash
+
+nopts=$#
+
+if [ -z "$SLURM_JOBID" ]; then
+    cat <<EOF
+ERROR: singularity_wrapper is meant to be executed on a compute node using Slurm!
+
+    For instructions on how to run jobs using the Slurm batch job manager, see:
+    https://docs.csc.fi/computing/running/getting-started/
+EOF
+    exit 1
+fi
+
+if [[ $nopts -eq 0 ]]; then
+    cat <<EOF
+USAGE:
+    singularity_wrapper exec <command>
+    singularity_wrapper run
+    singularity_wrapper shell <shell>
+EOF
+    exit 1
+fi
+
+SING_FLAGS="$SING_FLAGS -B /users:/users -B /projappl:/projappl -B /scratch:/scratch"
+
+if [ -n "$LOCAL_SCRATCH" ]; then
+    SING_FLAGS="$SING_FLAGS -B $LOCAL_SCRATCH:$LOCAL_SCRATCH -B $TMPDIR:$TMPDIR"
+fi
+
+case "$1" in
+    exec)
+        singularity exec $SING_FLAGS $SING_IMAGE "${@:2}"
+        exit $?
+        ;;
+    shell)
+        if [[ $nopts -lt 2 ]]; then
+            singularity shell $SING_FLAGS $SING_IMAGE
+            exit $?
+        else
+            singularity shell -s $2 $SING_FLAGS $SING_IMAGE
+            exit $?
+        fi
+        ;;
+    run)
+        singularity run $SING_FLAGS $SING_IMAGE "${@:2}"
+        exit $?
+esac
