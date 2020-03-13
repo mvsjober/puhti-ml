@@ -22,6 +22,8 @@ https://docs.csc.fi/computing/containers/run-existing/
 local singRoot = '/appl/soft/ai/singularity/'
 family("python_ml_env")
 
+prepend_path('PATH', '/appl/soft/ai/bin')
+
 setenv('SING_IMAGE', pathJoin(singRoot, 'images', singName))
 setenv('SING_FLAGS', '--nv')
 
