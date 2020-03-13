@@ -22,10 +22,10 @@ EOF
     exit 1
 fi
 
-SING_FLAGS="$SING_FLAGS -B /users:/users -B /projappl:/projappl -B /scratch:/scratch"
+SING_FLAGS="$SING_FLAGS -B /users:/users -B /projappl:/projappl -B /scratch:/scratch -B $TMPDIR:$TMPDIR"
 
 if [ -n "$LOCAL_SCRATCH" ]; then
-    SING_FLAGS="$SING_FLAGS -B $LOCAL_SCRATCH:$LOCAL_SCRATCH -B $TMPDIR:$TMPDIR"
+    SING_FLAGS="$SING_FLAGS -B $LOCAL_SCRATCH:$LOCAL_SCRATCH"
 fi
 
 case "$1" in
