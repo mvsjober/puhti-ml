@@ -12,6 +12,7 @@ dependencies:
   - torchtext
   - pytorch-nightly::torchaudio
   - scikit-learn
+  - scikit-image
   - scipy
   - jupyterlab
   - pandas

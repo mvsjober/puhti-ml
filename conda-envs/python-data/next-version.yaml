@@ -1,6 +1,7 @@
 name: python-data-next-version
 dependencies:
   - scikit-learn
+  - scikit-image
   - scipy
   - jupyterlab
   - pandas
