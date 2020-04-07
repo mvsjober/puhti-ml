@@ -12,12 +12,12 @@ Author Mats Sjöberg <mats.sjoberg@csc.fi>
   apt-get -y update
   apt-get -y upgrade
   apt -y install libsox-dev
+  apt -y install libhdf4-dev
 
-  pip install seaborn graphviz gensim xlwt openpyxl xgboost tables netcdf4 imbalanced-learn mysql-connector lxml openpyxl regex xlrd umap-learn dask-jobqueue tensorboardX pyhdf odfpy visdom
-  pip install fastai
+  /opt/conda/bin/pip install seaborn graphviz gensim xlwt openpyxl xgboost tables netcdf4 imbalanced-learn mysql-connector lxml openpyxl regex xlrd umap-learn dask-jobqueue tensorboardX pyhdf odfpy visdom
 
   git clone https://github.com/pytorch/audio
   cd audio
-  python setup.py install
+  /opt/conda/bin/python3 setup.py install
   cd ..
   rm -rf audio
