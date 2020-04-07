@@ -1,5 +1,16 @@
-name: python-data-next-version
+name: pytorch-1.X.Y
+channels:
+  - pytorch
+  - fastai
+  - defaults
 dependencies:
+  - python=3.7
+  - pytorch=1.4.0
+  - magma-cuda100
+  - cudatoolkit
+  - torchvision
+  - torchtext
+  - pytorch-nightly::torchaudio
   - scikit-learn
   - scikit-image
   - scipy
@@ -31,12 +42,19 @@ dependencies:
   - mysql-connector-python
   - lxml
   - openpyxl
-  - xlrd
+  - regex
   - conda-forge::umap-learn
+  - tensorboard 
+  - imageio
+  - fastai
   - conda-forge::dask-jobqueue
   - conda-forge::sox
-  - conda-forge::pyhdf
-  - conda-forge::opencv
+  - conda-forge::librosa
+  - conda-forge::tensorboardx
+  - conda-forge::nvidia-apex
+  - conda-forge::visdom
+  - conda-forge::odfpy
   - pip
   - pip:
-    - odfpy
+    - transformers
+

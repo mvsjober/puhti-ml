@@ -20,12 +20,17 @@ https://docs.csc.fi/computing/containers/run-existing/
 ]], pytorchVersion))
 
 local singRoot = '/appl/soft/ai/singularity/'
+local singPythonPath = '/appl/soft/ai/singularity/python-packages/'
+local singNamePath = singName:gsub('%.%a+', '')
+
 family("python_ml_env")
 
 prepend_path('PATH', '/appl/soft/ai/bin')
 
 setenv('SING_IMAGE', pathJoin(singRoot, 'images', singName))
-setenv('SING_FLAGS', '--nv')
+setenv('SING_FLAGS', '--nv -B ' .. singPythonPath .. ':' .. singPythonPath)
+setenv('SINGULARITYENV_PYTHONPATH', pathJoin(singPythonPath, singNamePath, 'lib/python3.6/site-packages'))
+setenv('SINGULARITYENV_PREPEND_PATH', pathJoin(singPythonPath, singNamePath, 'bin'))
 
 if (mode() == "load") then
    LmodMessage("NOTE: This module uses Singularity, see: https://docs.csc.fi/computing/containers/run-existing/")
