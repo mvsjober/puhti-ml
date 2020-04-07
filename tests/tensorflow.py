@@ -7,25 +7,33 @@ import os
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
-mv_parts = os.getenv('MOD_VERSION').split('-', 1)
-mod_version = mv_parts[0]
-mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
+nvidia = False  # if running within pure NVIDIA container
+mod_version = os.getenv('MOD_VERSION')  # module version, if running in module
+expect_horovod = True  # if we should expect horovod
+is_tf2 = True
 
-nvidia = mod_version == 'nvidia'
-if nvidia:
-    is_tf2 = 'tf2' in mod_version_spec
-else:
-    is_tf2 = LV(mod_version) >= LV("2.0")
+if mod_version is not None:
+    mv_parts = os.getenv('MOD_VERSION').split('-', 1)
+    mod_version = mv_parts[0]
+    mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
+    nvidia = mod_version == 'nvidia'
+    expect_horovod = 'hvd' in mod_version_spec
+
+    if nvidia:
+        is_tf2 = 'tf2' in mod_version_spec
+    else:
+        is_tf2 = LV(mod_version) >= LV("2.0")
 
 
 class TestTensorflow(unittest.TestCase):
 
     def test_versions(self):
         import tensorflow as tf
-        if not nvidia:
-            self.assertEqual(LV(tf.__version__), LV(mod_version))
-        else:
-            print('NOTE: running NVIDIA container, skipping some tests...')
+        if mod_version:
+            if not nvidia:
+                self.assertEqual(LV(tf.__version__), LV(mod_version))
+            else:
+                print('NOTE: running NVIDIA container, skipping some tests...')
 
         if is_tf2:
             import tensorflow.keras as keras
@@ -35,6 +43,12 @@ class TestTensorflow(unittest.TestCase):
 
         if is_tf2:
             self.assertGreaterEqual(LV(keras.__version__), LV("2.2.4"))
+
+        if expect_horovod:
+            import horovod
+            import horovod.tensorflow as hvd
+            self.assertGreaterEqual(LV(horovod.__version__), LV("0.18.2"))
+            
 
     def test_keras_backend(self):
         if is_tf2:

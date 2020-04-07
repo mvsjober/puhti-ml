@@ -5,30 +5,36 @@ try:
     from packaging.version import Version as LV
 except ImportError:
     from distutils.version import LooseVersion as LV
+    print('WARNING: using distutils version check, not packaging!')
 
 import os
 
-mv_parts = os.getenv('MOD_VERSION').split('-', 1)
-mod_version = mv_parts[0]
-mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
-nvidia = mod_version == 'nvidia'
+nvidia = False  # if running within pure NVIDIA container
+mod_version = os.getenv('MOD_VERSION')  # module version, if running in module
+expect_horovod = False  # if we should expect horovod
+
+if mod_version is not None:
+    mv_parts = os.getenv('MOD_VERSION').split('-', 1)
+    mod_version = mv_parts[0]
+    mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
+    nvidia = mod_version == 'nvidia'
+    expect_horovod = 'hvd' in mod_version_spec
+
 
 class TestPytorch(unittest.TestCase):
     def test_versions(self):
-        global mod_version
-
         if nvidia:
             print('NOTE: running NVIDIA container, skipping some library tests...')
 
         import torch
         import torch.nn
 
-        if mod_version == '1.0.1':
-            self.assertEqual(torch.__version__, '1.0.1.post2')
-        elif not nvidia:
-            self.assertEqual(LV(torch.__version__), LV(mod_version))
-
-        if 'hvd' in mod_version_spec:
+        if mod_version:
+            if mod_version == '1.0.1':
+                self.assertEqual(torch.__version__, '1.0.1.post2')
+            elif not nvidia:
+                self.assertEqual(LV(torch.__version__), LV(mod_version))
+        if expect_horovod:
             import horovod
             import horovod.torch as hvd
             self.assertGreaterEqual(LV(horovod.__version__), LV("0.18.2"))
@@ -223,14 +229,14 @@ class TestPytorch(unittest.TestCase):
 
         kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
         train_loader = torch.utils.data.DataLoader(
-            datasets.MNIST('../data', train=True, download=True,
+            datasets.MNIST('data', train=True, download=True,
                            transform=transforms.Compose([
                                transforms.ToTensor(),
                                transforms.Normalize((0.1307,), (0.3081,))
                            ])),
             batch_size=64, shuffle=True, **kwargs)
         test_loader = torch.utils.data.DataLoader(
-            datasets.MNIST('../data', train=False, transform=transforms.Compose([
+            datasets.MNIST('data', train=False, transform=transforms.Compose([
                                transforms.ToTensor(),
                                transforms.Normalize((0.1307,), (0.3081,))
                            ])),
