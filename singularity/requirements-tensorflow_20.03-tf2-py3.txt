@@ -28,3 +28,4 @@ pyhdf
 odfpy
 geopandas
 rasterio
+transformers
