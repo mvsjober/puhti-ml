@@ -45,7 +45,7 @@ Once you know the right installation commands add them to the definition file an
 
 Images should be copied to `/appl/soft/ai/singularity/images/`, and should have a corresponding module file in `/appl/modulefiles/` (visible to all by default) or `/appl/soft/ai/singularity/modulefiles/` for more specialized software (not visible by default to all).
 
-Take a look at `pytorch/nvidia-20.03-py3.lua` for an example of a module file.  Most importantly it will set `SINGULARITYENV_PYTHONPATH` to point to something like `/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc/lib/python3.6/site-packages`.  This is where we will install additional packages on Puhti with `pip install`.
+Take a look at `pytorch/nvidia-20.03-py3.lua` for an example of a module file.  Most importantly it will set `SINGULARITYENV_PYTHONPATH` to point to something like `/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc/lib/python3.6/site-packages`.  This is where we will install additional packages on Puhti with `pip install`. Also this path needs to be added to `SING_FLAGS` so that it is bound when running the Singularity image.
 
 ## Install packages "on-the-fly" on Puhti
 
@@ -53,14 +53,16 @@ First check that you don't have anything in `~/.local/lib/python3.6` which might
 
     ssh puhti-login3
     module load pytorch/nvidia-20.03-py3
-    export PYTHONUSERBASE=/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc
+    #export PYTHONUSERBASE=/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc
+    export PYTHONUSERBASE=$(echo $SINGULARITYENV_PYTHONPATH | cut -d / -f-7)
+    echo $PYTHONUSERBASE  # just to check, it should be like /appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc
     
     singularity_wrapper exec pip install --user -r requirements-pytorch_20.03-py3-csc.txt
     singularity_wrapper exec pip install --user transformers
     
     unset PYTHONUSERBASE  # to avoid later unpleasant surprises...
     
-NOTE: `PYTHONUSERBASE` should indeed point to `/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc` and not the `lib/python3.6/site-packages` subdirectory!
+NOTE: `PYTHONUSERBASE` should indeed point to e.g. `/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc` and not the `lib/python3.6/site-packages` subdirectory!
 
 ## Install user packages
 
