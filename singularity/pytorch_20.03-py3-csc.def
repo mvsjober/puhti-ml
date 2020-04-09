@@ -4,18 +4,15 @@ From: nvcr.io/nvidia/pytorch:20.03-py3
 %labels
 Author Mats Sjöberg <mats.sjoberg@csc.fi>
 
-%environment
-  export PYTHONPATH=/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc
-  export SINGULARITYENV_PREPEND_PATH=${PYTHONPATH}/bin
-
 %post
   apt-get -y update
   apt-get -y upgrade
   apt -y install libsox-dev
   apt -y install libhdf4-dev
 
-  /opt/conda/bin/pip install seaborn graphviz gensim xlwt openpyxl xgboost tables netcdf4 imbalanced-learn mysql-connector lxml openpyxl regex xlrd umap-learn dask-jobqueue tensorboardX pyhdf odfpy visdom
-
+  #  /opt/conda/bin/pip install seaborn graphviz gensim xlwt openpyxl xgboost tables netcdf4 imbalanced-learn mysql-connector lxml openpyxl regex xlrd umap-learn dask-jobqueue tensorboardX pyhdf odfpy
+  # visdom
+  
   git clone https://github.com/pytorch/audio
   cd audio
   /opt/conda/bin/python3 setup.py install
