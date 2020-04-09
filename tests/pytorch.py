@@ -17,7 +17,7 @@ if mod_version is not None:
     mv_parts = os.getenv('MOD_VERSION').split('-', 1)
     mod_version = mv_parts[0]
     mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
-    nvidia = mod_version == 'nvidia'
+    #nvidia = mod_version == 'nvidia'
     expect_horovod = 'hvd' in mod_version_spec
 
 
