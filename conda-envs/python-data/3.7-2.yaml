@@ -1,0 +1,56 @@
+name: python-data-3.7-2
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - scikit-learn>=0.23
+  - scikit-image
+  - scipy
+  - jupyterlab
+  - pandas>=1.0
+  - tqdm
+  - seaborn
+  - requests
+  - pillow
+  - h5py
+  - graphviz
+  - matplotlib
+  - nltk
+  - sqlite
+  - spyder
+  - pytest
+  - cython
+  - gensim
+  - xlwt
+  - openpyxl
+  - pydot
+  - dask
+  - pyyaml
+  - py-xgboost
+  - pytables
+  - netcdf4
+  - imbalanced-learn
+  - python-lmdb
+  - lxml
+  - openpyxl
+  - xlrd
+  - umap-learn
+  - dask-jobqueue
+  - sox
+  - pyhdf
+  - opencv
+  - pip
+  - pip:
+    - odfpy
+    - logzero
+    - fasttext
+    - hyperopt
+    - ipdb
+    - kaggle
+    - networkx
+    - odfpy
+    - ray
+    - rdflib
+    - redis
+
