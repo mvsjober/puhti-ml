@@ -7,6 +7,8 @@ For more help see: https://docs.csc.fi/apps/python-data/]])
 
 family("python_ml_env")
 
+depends_on("gcc/7.4.0")
+
 local condaRoot = '/appl/soft/ai/miniconda3'
 local envRoot = pathJoin(condaRoot, 'envs', condaEnv)
 
