@@ -60,7 +60,9 @@ class TestPytorch(unittest.TestCase):
         elif LV(torch.__version__) >= LV("1.2"):
             import pytorch_transformers
 
-        if LV(torch.__version__) >= LV("1.1"):
+        if LV(torch.__version__) >= LV("1.6"):
+            import torch.cuda.amp
+        elif LV(torch.__version__) >= LV("1.1"):
             import apex
 
     def test_magma(self):
