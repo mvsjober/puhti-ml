@@ -37,9 +37,9 @@ def main(args):
 
     top_n = args.n
 
-    users = defaultdict(int)
-    projs = defaultdict(int)
-    no_gres = defaultdict(int)
+    users = defaultdict(float)
+    projs = defaultdict(float)
+    no_gres = defaultdict(float)
 
     for line in lines:
         if len(line) == 0:
@@ -56,11 +56,11 @@ def main(args):
         if gpus == 0 and elapsed > 0:
             no_gres[user] += elapsed*nnodes
 
-        gpu_secs = elapsed*nnodes*gpus
-        users[user] += gpu_secs
-        projs[account] += gpu_secs
+        gpu_hours = elapsed*nnodes*gpus/60.0/60.0
+        users[user] += gpu_hours
+        projs[account] += gpu_hours
 
-    title = "Top {} {} according to total GPU seconds".format(top_n, args.mode)
+    title = "Top {} {} according to total GPU hours".format(top_n, args.mode)
     if args.S:
         title += " from " + args.S
     if args.E:
@@ -68,23 +68,23 @@ def main(args):
     print(title)
     
     if args.mode == 'users':
-        for user, secs in sorted(users.items(), key=lambda x: -x[1])[:top_n]:
-            print(user, secs)
+        for user, hours in sorted(users.items(), key=lambda x: -x[1])[:top_n]:
+            print('{:10} {:10.0f}'.format(user, hours))
 
         if len(no_gres) > 0:
             print('\nWARNING: the following users have run without GPUs!')
-            for user, secs in no_gres.items():
-                print(user, secs)
+            for user, hours in no_gres.items():
+                print('{:10} {:10.0f}'.format(user, hours))
     elif args.mode == 'projects':
-        for proj, secs in sorted(projs.items(), key=lambda x: -x[1])[:top_n]:
-            print('{:15} {:10d} {}'.format(proj, secs, get_proj_desc(proj)))
+        for proj, hours in sorted(projs.items(), key=lambda x: -x[1])[:top_n]:
+            print('{:15} {:8.0f} {}'.format(proj, hours, get_proj_desc(proj)))
 
 
 if __name__ == '__main__':
     now = datetime.now()
     start_month = now.strftime("%Y-%m-01")
 
-    parser = argparse.ArgumentParser(description='')
+    parser = argparse.ArgumentParser()
     parser.add_argument('mode', choices=['users', 'projects'])
     parser.add_argument('-n', type=int, default=20,
                         help='number of top results to show')
