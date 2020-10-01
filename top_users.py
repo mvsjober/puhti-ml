@@ -25,11 +25,15 @@ def main(args):
     if args.partition:
         cmd += ['-r', args.partition]
 
-    if args.verbose:
-        print('COMMAND:', ' '.join(cmd))
-    result = subprocess.run(cmd, stdout=subprocess.PIPE)
-    lines = result.stdout.decode('utf-8').split('\n')
-    # lines = open('sacct.txt').readlines()
+    if args.file:
+        if args.verbose:
+            print('Reading sacct output from file', args.file)
+        lines = open(args.file).readlines()
+    else:
+        if args.verbose:
+            print('COMMAND:', ' '.join(cmd))
+        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        lines = result.stdout.decode('utf-8').split('\n')
 
     top_n = args.n
 
@@ -43,13 +47,14 @@ def main(args):
         user, account, elapsed, nnodes, allocgres = line.rstrip().split('|')
         elapsed = int(elapsed)
         nnodes = int(nnodes)
+        gpus = 0
         if len(allocgres) > 0:
-            allocgres = dict([x.split(':') for x in allocgres.split(',')])
-            gpus = int(allocgres['gpu'])
-        else:
-            if elapsed > 0:
-                no_gres[user] += elapsed*nnodes
-            gpus = 1
+            gres = dict([x.split(':') for x in allocgres.split(',')])
+            if 'gpu' in gres:
+                gpus = int(gres['gpu'])
+
+        if gpus == 0 and elapsed > 0:
+            no_gres[user] += elapsed*nnodes
 
         gpu_secs = elapsed*nnodes*gpus
         users[user] += gpu_secs
@@ -67,7 +72,7 @@ def main(args):
             print(user, secs)
 
         if len(no_gres) > 0:
-            print('\nWARNING: the following users have run without gres!')
+            print('\nWARNING: the following users have run without GPUs!')
             for user, secs in no_gres.items():
                 print(user, secs)
     elif args.mode == 'projects':
@@ -90,4 +95,5 @@ if __name__ == '__main__':
                         'default: start of current month')
     parser.add_argument('-E', help='end time for jobs, given to sacct')
     parser.add_argument('-v', '--verbose', action='store_true')
+    parser.add_argument('-f', '--file', help='read sacct output from file instead')
     main(parser.parse_args())
