@@ -1,0 +1,9 @@
+dvc init
+dvc cache dir /scratch/myproject/path/to/dvc-cache   # place big files on scratch drive
+dvc config cache.type hardlink,symlink          # link - don't copy - big files
+dvc remote add -d allas s3://bucketname/myremote
+dvc remote modify allas endpointurl https://a3s.fi
+
+allas-conf -m s3cmd
+dvc pull -j 4  # you must specify -j as it will otherwise start 160 threads on Puhti...
+dvc push -j 4
