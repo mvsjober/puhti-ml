@@ -1,4 +1,4 @@
-local condaEnv = 'tensorflow-1.14.0'
+local condaEnv = 'tensorflow-hvd-2.2.0'
 
 help([[
 Tensorflow deep learning library for Python
@@ -7,7 +7,9 @@ For more help see: https://docs.csc.fi/apps/tensorflow/]])
 
 family("python_ml_env")
 
-depends_on("gcc/7.4.0")
+depends_on("gcc/8.3.0")
+depends_on("hpcx-mpi/2.4.0")
+depends_on("cuda/10.1.168")
 
 local condaRoot = '/appl/soft/ai/miniconda3'
 local envRoot = pathJoin(condaRoot, 'envs', condaEnv)

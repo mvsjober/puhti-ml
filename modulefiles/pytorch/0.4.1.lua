@@ -1,13 +1,11 @@
-local condaEnv = 'python-data-3.7.3-1'
+local condaEnv = 'pytorch-0.4.1'
 
 help([[
-Collection of popular data analytics and machine learning packages for Python
+PyTorch machine learning library for Python
 
-For more help see: https://docs.csc.fi/apps/python-data/]])
+For more help see: https://docs.csc.fi/apps/pytorch/]])
 
 family("python_ml_env")
-
-depends_on("gcc/7.4.0")
 
 local condaRoot = '/appl/soft/ai/miniconda3'
 local envRoot = pathJoin(condaRoot, 'envs', condaEnv)

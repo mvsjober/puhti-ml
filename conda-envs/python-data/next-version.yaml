@@ -1,8 +1,6 @@
-name: python-data-next-version
+name: python-data-3.7.3-1
 dependencies:
   - scikit-learn
-  - scikit-image
-  - scipy
   - jupyterlab
   - pandas
   - tqdm
@@ -25,18 +23,3 @@ dependencies:
   - pyyaml
   - py-xgboost
   - pytables
-  - netcdf4
-  - imbalanced-learn
-  - python-lmdb
-  - mysql-connector-python
-  - lxml
-  - openpyxl
-  - xlrd
-  - conda-forge::umap-learn
-  - conda-forge::dask-jobqueue
-  - conda-forge::sox
-  - conda-forge::pyhdf
-  - conda-forge::opencv
-  - pip
-  - pip:
-    - odfpy

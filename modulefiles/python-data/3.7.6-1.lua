@@ -1,4 +1,4 @@
-local condaEnv = 'python-data-3.7.3-1'
+local condaEnv = 'python-data-3.7-2'
 
 help([[
 Collection of popular data analytics and machine learning packages for Python
