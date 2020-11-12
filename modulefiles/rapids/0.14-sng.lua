@@ -1,4 +1,4 @@
-local singName = 'rapidsai_0.14-cuda10.1-runtime-centos7.sif'
+local singName = 'nvidia-rapidsai_0.14-cuda10.1-runtime-centos7.sif'
 
 help([[
 Collection of libraries for data science and analytics on GPUs
