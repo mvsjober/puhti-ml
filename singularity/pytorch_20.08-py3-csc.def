@@ -1,0 +1,17 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/pytorch:20.08-py3
+
+%labels
+Author Mats Sjöberg <mats.sjoberg@csc.fi>
+
+%post
+  apt-get -y update
+  apt-get -y upgrade
+  apt -y install libsox-dev
+  apt -y install libhdf4-dev
+
+  git clone https://github.com/pytorch/audio -b v0.6.0 torchaudio
+  cd torchaudio
+  /opt/conda/bin/python3 setup.py install
+  cd ..
+  rm -rf torchaudio
