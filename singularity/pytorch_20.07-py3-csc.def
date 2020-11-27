@@ -18,3 +18,5 @@ Author Mats Sjöberg <mats.sjoberg@csc.fi>
   /opt/conda/bin/python3 setup.py install
   cd ..
   rm -rf torchaudio
+  rm -f /usr/local/cuda/compat/lib
+
