@@ -1,4 +1,4 @@
-local singName = 'pytorch_20.08-py3-csc.sif'
+local singName = 'pytorch_20.08-py3-csc-v2.sif'
 local pytorchVersion = '1.7.0a0+8deb4fe'
 
 help(string.format([[

@@ -1,11 +1,14 @@
-local singName = 'pytorch_20.07-py3-csc-v2.sif'
-local pytorchVersion = '1.6.0a0+9907a3e'
+local singName = 'pytorch_20.11-py3-csc.sif'
+local pytorchVersion = '1.8.0a0+17f8c32'
 
 help(string.format([[
 PyTorch machine learning library for Python
 
 PyTorch version %s running in NVIDIA's optimized container: 
 https://ngc.nvidia.com/catalog/containers/nvidia:pytorch
+
+For specific software version in the container, see:
+https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel_20-11.html
 
 For more help see: https://docs.csc.fi/apps/pytorch/
 
@@ -33,6 +36,8 @@ setenv('SING_IMAGE', pathJoin(singRoot, 'images', singName))
 setenv('SING_FLAGS', '--nv -B ' .. singPythonPath .. ':' .. singPythonPath)
 setenv('SINGULARITYENV_PYTHONPATH', pathJoin(singPythonPath, singNamePath, 'lib/python3.6/site-packages'))
 setenv('SINGULARITYENV_PREPEND_PATH', pathJoin(singPythonPath, singNamePath, 'bin'))
+
+setenv('SLURM_MPI_TYPE', 'pmix_v2')
 
 if (mode() == "load") then
    LmodMessage("NOTE: This module uses Singularity, see: https://docs.csc.fi/computing/containers/run-existing/")
