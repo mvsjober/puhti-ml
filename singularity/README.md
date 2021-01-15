@@ -49,7 +49,7 @@ Take a look at `pytorch/nvidia-20.03-py3.lua` for an example of a module file.  
 
 ## Install packages "on-the-fly" on Puhti
 
-First check that you don't have anything in `~/.local/lib/python3.6` which might affect pip installs (e.g., it finds some requirement already there and doesn't install it).
+First check that you don't have anything in `~/.local/lib/python3.6` (or `~/.local/lib/python3.8` for some images) which might affect pip installs (e.g., it finds some requirement already there and doesn't install it).
 
     ssh puhti-login3
     module load pytorch/nvidia-20.03-py3
@@ -62,7 +62,7 @@ First check that you don't have anything in `~/.local/lib/python3.6` which might
     
     unset PYTHONUSERBASE  # to avoid later unpleasant surprises...
     
-NOTE: `PYTHONUSERBASE` should indeed point to e.g. `/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc` and not the `lib/python3.6/site-packages` subdirectory!
+NOTE: `PYTHONUSERBASE` should indeed point to e.g. `/appl/soft/ai/singularity/python-packages/pytorch_20.03-py3-csc` and not the `lib/python3.X/site-packages` subdirectory!
 
 ## Install user packages
 

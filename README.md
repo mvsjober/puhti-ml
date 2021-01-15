@@ -199,7 +199,7 @@ By default the tests are run for the default version of each of the modules.  If
 
 ## Singularity
 
-In addition to conda-installations one can also use singularity images, which can be created from Docker images, see [notes on conversion and running existing containers](https://docs.csc.fi/#computing/containers/run-existing/).
+In addition to conda-installations one can also use singularity images, which can be created from Docker images, see [notes on conversion and running existing containers](https://docs.csc.fi/computing/containers/run-existing/).
 
 Images are placed in `/appl/soft/ai/singularity/images/`, and each image should have a corresponding module file in `/appl/soft/ai/singularity/modulefiles/`.
 
