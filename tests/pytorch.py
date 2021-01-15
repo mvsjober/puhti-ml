@@ -9,7 +9,8 @@ except ImportError:
 
 import os
 
-nvidia = False  # if running within pure NVIDIA container
+nvidia = False  # if running within NVIDIA container
+nvidia_skip = False
 mod_version = os.getenv('MOD_VERSION')  # module version, if running in module
 expect_horovod = False  # if we should expect horovod
 
@@ -17,14 +18,14 @@ if mod_version is not None:
     mv_parts = os.getenv('MOD_VERSION').split('-', 1)
     mod_version = mv_parts[0]
     mod_version_spec = '' if len(mv_parts) == 1 else mv_parts[1]
-    #nvidia = mod_version == 'nvidia'
+    nvidia = mod_version == 'nvidia'
     expect_horovod = 'hvd' in mod_version_spec
 
 
 class TestPytorch(unittest.TestCase):
     def test_versions(self):
         if nvidia:
-            print('NOTE: running NVIDIA container, skipping some library tests...')
+            print('NOTE: running NVIDIA container')
 
         import torch
         import torch.nn
@@ -47,14 +48,14 @@ class TestPytorch(unittest.TestCase):
 
         if LV(torch.__version__) >= LV("1.2"):
             import torchtext
-            if not nvidia:
+            if not nvidia_skip:
                 import dask_jobqueue
-        if not nvidia:
+        if not nvidia_skip:
             import torchaudio
             import tensorboardX
         import librosa
 
-        if LV(torch.__version__) >= LV("1.3") and not nvidia:
+        if LV(torch.__version__) >= LV("1.3") and not nvidia_skip:
             import transformers
             import visdom
         elif LV(torch.__version__) >= LV("1.2"):
