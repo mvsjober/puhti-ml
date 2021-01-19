@@ -124,7 +124,7 @@ Includes [TensorFlow](https://www.tensorflow.org/) and related packages.
 
 Version numbering is based on the TensorFlow version.
 
-#### 2.4.0-hvd
+#### 2.4-hvd
 
 TensorFlow with [horovod](https://github.com/horovod/horovod) support,
 using CUDA 11.0 and cuDNN 8.

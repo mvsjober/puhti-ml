@@ -1,6 +1,6 @@
 ### tensorflow
 
-#### 2.2.0-hvd
+#### 2.2-hvd
 
 TensorFlow with [horovod](https://github.com/horovod/horovod) support.
 
