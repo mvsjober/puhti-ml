@@ -124,29 +124,53 @@ Includes [TensorFlow](https://www.tensorflow.org/) and related packages.
 
 Version numbering is based on the TensorFlow version.
 
-#### 2.2.0-hvd
+#### 2.4.0-hvd
 
-TensorFlow with [horovod](https://github.com/horovod/horovod) support.
+TensorFlow with [horovod](https://github.com/horovod/horovod) support,
+using CUDA 11.0 and cuDNN 8.
 
 First install NCCL under `/appl/soft/ai/nccl`.
 
 Created as:
 
-    conda create --name tensorflow-hvd-2.2.0 --clone python-data-3.7-2
-    conda activate tensorflow-hvd-2.2.0
+    conda create --name tensorflow-hvd-2.4.0 --clone python-data-3.7-2
+    conda activate tensorflow-hvd-2.4.0
     conda install tensorflow-gpu==2.2.0 keras
-    conda install cudatoolkit==10.1.243 cudnn cupti # cuda should be 10.1.168
+    conda remove tensorflow tensorflow-gpu tensorflow-base # no 2.4 in conda
+    pip install tensorflow-gpu==2.4.0
+    pip install keras autokeras
+    conda install pydot
+    conda install cudatoolkit==11.0.221
+    conda remove cudnn # cudatoolkit brings cudnn 6 with it
     conda install gcc_linux-64 gxx_linux-64
-    
+
+Install cuDNN manually from `cudnn-11.0-linux-x64-v8.0.5.39.tgz`:
+
+    tar xvf cudnn-11.0-linux-x64-v8.0.5.39.tgz
+    cd cuda/lib64/
+    cp -i * /appl/soft/ai/miniconda3/envs/tensorflow-hvd-2.4.0/lib/
+    cd ../include
+    cp -i * /appl/soft/ai/miniconda3/envs/tensorflow-hvd-2.4.0/include/
+    cd /appl/soft/ai/miniconda3/envs/tensorflow-hvd-2.4.0/lib/
+    chgrp p_installation_ai *
+    chgrp -h p_installation_ai *
+    cd ../include
+    chgrp p_installation_ai *
+    chgrp -h p_installation_ai *
+
+For some reason, this is needed:
+
+    pip uninstall tensorflow_estimator
+    pip install -U tensorflow_estimator
+
 Activate MPI:
 
-    ml gcc/8.3.0
+    ml gcc/9.1.0 cuda/11.0.2
     ml hpcx-mpi/2.4.0
 
 Install horovod with `pip`:
 
-    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.5.6-1+cuda10.1_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
-
+    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.8.3-1+cuda11.0_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
 
 For older TensorFlow installations see [tensorflow.md](tensorflow.md).
 
