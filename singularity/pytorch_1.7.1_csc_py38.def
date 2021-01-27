@@ -1,0 +1,87 @@
+Bootstrap: library
+From: centos:7.7
+
+%labels
+  Author Mats Sjöberg <mats.sjoberg@csc.fi>
+
+%files
+  requirements_pytorch_1.7.1.txt /opt/requirements.txt
+
+%post
+  # Upgrade packages to most recent versions
+  yum -y upgrade
+
+  # Enable EPEL (required by NVIDIA packages)
+  yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+  # Install newer gcc and Python 3.8
+  yum -y install centos-release-scl
+  yum -y install devtoolset-7
+  yum -y install rh-python38
+  yum -y install rh-python38-python-devel
+  source /opt/rh/devtoolset-7/enable
+  source /opt/rh/rh-python38/enable
+
+  # Install additional stuff
+  yum -y install wget cmake lbzip2
+
+  # Install Mellanox stuff and OpenMPI
+  wget https://www.mellanox.com/downloads/ofed/RPM-GPG-KEY-Mellanox
+  rpm --import RPM-GPG-KEY-Mellanox
+  rm RPM-GPG-KEY-Mellanox
+
+  cd /etc/yum.repos.d/
+  wget https://linux.mellanox.com/public/repo/mlnx_ofed/4.7-1.0.0.1/rhel7.7/mellanox_mlnx_ofed.repo
+  yum -y install mlnx-ofed-basic
+
+  # Mellanox HPC-X
+  # Found correct URL by going to https://www.mellanox.com/products/hpc-x-toolkit
+  # and → Download → Archive Versions → 2.5.0 → MLNX_OFED → 4.7-1.0.0.1
+  #     → RHEL/CentOS → 7.7 → x86_64
+  cd /opt
+  wget https://content.mellanox.com/hpc/hpc-x/v2.5/hpcx-v2.5.0-gcc-MLNX_OFED_LINUX-4.7-1.0.0.1-redhat7.7-x86_64.tbz
+  tar xf hpcx-v2.5.0-gcc-MLNX_OFED_LINUX-4.7-1.0.0.1-redhat7.7-x86_64.tbz
+  rm hpcx-v2.5.0-gcc-MLNX_OFED_LINUX-4.7-1.0.0.1-redhat7.7-x86_64.tbz
+  ln -s hpcx-v2.5.0-gcc-MLNX_OFED_LINUX-4.7-1.0.0.1-redhat7.7-x86_64 hpcx
+  cd hpcx
+  export HPCX_HOME=/opt/hpcx
+  source ${HPCX_HOME}/hpcx-mt-init.sh
+  hpcx_load
+
+  # Install CUDA
+  cd /etc/yum.repos.d/
+  wget https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
+  yum -y install nvidia-driver-latest-dkms cuda
+  yum -y install cuda-drivers
+
+  # Install NCCL
+  wget https://developer.download.nvidia.com/compute/machine-learning/repos/rhel7/x86_64/nvidia-machine-learning-repo-rhel7-1.0.0-1.x86_64.rpm
+  rpm -i nvidia-machine-learning-repo-rhel7-1.0.0-1.x86_64.rpm
+  yum update
+  yum -y install libnccl libnccl-devel libnccl-static
+  rm nvidia-machine-learning-repo-rhel7-1.0.0-1.x86_64.rpm
+
+  # Install PyTorch
+  set +e
+  pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 torchtext -f https://download.pytorch.org/whl/torch_stable.html
+
+  pip install -r /opt/requirements.txt
+
+  export PATH=/usr/local/cuda/bin:$PATH
+  HOROVOD_WITH_PYTORCH=1 HOROVOD_WITHOUT_TENSORFLOW=1 HOROVOD_WITHOUT_MXNET=1 \
+                      HOROVOD_WITH_MPI=1 HOROVOD_WITHOUT_GLOO=1 HOROVOD_GPU_OPERATIONS=NCCL \
+                      pip install horovod
+  yum clean all
+
+%environment
+  export SLURM_MPI_TYPE=pmix_v2
+  export PMIX_MCA_gds=hash
+
+  source /opt/rh/devtoolset-7/enable
+  source /opt/rh/rh-python38/enable
+
+  OLD_DIR=`pwd`
+  cd /opt/hpcx
+  source hpcx-mt-init.sh
+  hpcx_load
+  cd $OLD_DIR
