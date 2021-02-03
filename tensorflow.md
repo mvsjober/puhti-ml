@@ -1,5 +1,28 @@
 ### tensorflow
 
+#### 2.2-hvd
+
+TensorFlow with [horovod](https://github.com/horovod/horovod) support.
+
+First install NCCL under `/appl/soft/ai/nccl`.
+
+Created as:
+
+    conda create --name tensorflow-hvd-2.2.0 --clone python-data-3.7-2
+    conda activate tensorflow-hvd-2.2.0
+    conda install tensorflow-gpu==2.2.0 keras
+    conda install cudatoolkit==10.1.243 cudnn cupti # cuda should be 10.1.168
+    conda install gcc_linux-64 gxx_linux-64
+
+Activate MPI:
+
+    ml gcc/8.3.0
+    ml hpcx-mpi/2.4.0
+
+Install horovod with `pip`:
+
+    HOROVOD_NCCL_HOME=/appl/soft/ai/nccl/nccl_2.5.6-1+cuda10.1_x86_64 HOROVOD_GPU_ALLREDUCE=NCCL pip install --no-cache-dir horovod
+
 #### 2.0.0
 
 Created as:
