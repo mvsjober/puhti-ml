@@ -34,8 +34,12 @@ class TestPytorch(unittest.TestCase):
             if mod_version == '1.0.1':
                 self.assertEqual(torch.__version__, '1.0.1.post2')
             elif not nvidia:
-                self.assertEqual(LV(torch.__version__), LV(mod_version))
+                tv = torch.__version__
+                if '+' in tv:
+                    tv,_ = tv.split('+')
+                self.assertEqual(LV(tv), LV(mod_version))
         if expect_horovod:
+            print('Expecting Horovod...')
             import horovod
             import horovod.torch as hvd
             self.assertGreaterEqual(LV(horovod.__version__), LV("0.18.2"))
@@ -69,6 +73,8 @@ class TestPytorch(unittest.TestCase):
     def test_magma(self):
         import torch
         use_cuda = torch.cuda.is_available()
+        if not use_cuda:
+            print("WARNING: testing magma, but no GPU found!")
         device = torch.device("cuda" if use_cuda else "cpu")
 
         x = torch.randn(10, 10).to(device)

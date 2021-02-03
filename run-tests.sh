@@ -20,7 +20,7 @@ do
         module load $PKG
         module list
 
-        if [[ "$PKG" =~ .*/nvidia* ]]
+        if [[ "$PKG" =~ .*/nvidia* || "$PKG" =~ .*/*-sng ]]
         then
             CMD="singularity_wrapper exec python3"
         else
