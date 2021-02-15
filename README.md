@@ -1,3 +1,6 @@
+**NOTE:** This page describes mainly the old conda-based instructions, new Singularity-based instructions can be found from here:  
+<http://env-docs.rahtiapp.fi/apps/ml-env/>
+
 # Installation instructions for Puhti ML environment
 
 Installation is currently based on the miniconda3 distribution, installed in `/appl/soft/ai/miniconda3`.  Users need not concern themselves with conda, software is taken into use with the normal module system.
